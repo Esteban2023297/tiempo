@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Álbum - Mi Proyecto</title>
+    <!-- Mantenemos el estilo base pero inyectamos la magia debajo -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        /* --- AJUSTES PARA EL SCROLL HORIZONTAL --- */
+        body {
+            background-color: #0f172a; /* Fondo oscuro para resaltar fotos */
+            color: white;
+            overflow-y: hidden; /* Bloqueamos el scroll vertical */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- ANIMACIONES --- */
+        @keyframes revealPhotos {
+            from {
+                opacity: 0;
+                transform: translateX(150px) scale(0.8) rotate(5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1) rotate(0deg);
+            }
+        }
+
+        /* --- CONTENEDOR PRINCIPAL HORIZONTAL --- */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            overflow-x: auto; /* Activamos el scroll a la derecha */
+            overflow-y: hidden;
+            padding: 0 100px;
+            gap: 60px;
+            scroll-behavior: smooth;
+            /* Personalización de la barra de scroll */
+            scrollbar-width: thin;
+            scrollbar-color: #38bdf8 transparent;
+        }
+
+        /* Barra de scroll para Chrome/Safari */
+        main::-webkit-scrollbar {
+            height: 6px;
+        }
+        main::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 10px;
+        }
+
+        /* --- EL TOQUE ÚNICO: TÍTULO GIGANTE DE FONDO --- */
+        h2 {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            white-space: nowrap;
+            z-index: -1;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        /* --- ESTILO DE LAS TARJETAS DE FOTOS --- */
+        .album-grid {
+            display: flex; /* Cambiamos de Grid a Flex para el flujo horizontal */
+            gap: 50px;
+        }
+
+        .photo-card {
+            flex: 0 0 350px; /* Tamaño fijo para que no se compriman */
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: revealPhotos 1s ease-out both;
+        }
+
+        /* Retraso de animación para efecto cascada */
+        .photo-card:nth-child(1) { animation-delay: 0.1s; }
+        .photo-card:nth-child(2) { animation-delay: 0.3s; }
+        .photo-card:nth-child(3) { animation-delay: 0.5s; }
+        .photo-card:nth-child(4) { animation-delay: 0.7s; }
+        .photo-card:nth-child(5) { animation-delay: 0.9s; }
+        .photo-card:nth-child(6) { animation-delay: 1.1s; }
+
+        .photo-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            border-color: #38bdf8;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.5); /* Toque artístico: un poco desaturado */
+            transition: 0.5s;
+        }
+
+        .photo-card:hover img {
+            filter: saturate(1.2); /* Vuelve el color al pasar el mouse */
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white;
+            font-weight: 600;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .photo-card:hover .caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* --- FOOTER FIJO --- */
+        footer {
+            background: transparent;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        nav {
+            background: rgba(15, 23, 42, 0.8) !important;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html" class="logo">MiPortafolio</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="biografia.html">Biografía</a></li>
+        <li><a href="album.html">Álbum</a></li>
+    </ul>
+</nav>
+
+<main>
+    <h2>GALERÍA</h2> <!-- Título decorativo de fondo -->
+
+    <div class="album-grid">
+        <div class="photo-card">
+            <img src="https://picsum.photos/500/800?sig=1" alt="Foto 1">
+            <div class="caption">Exploración Urbana</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://picsum.photos/500/800?sig=2" alt="Foto 2">
+            <div class="caption">Tecnología y Futuro</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://picsum.photos/500/800?sig=3" alt="Foto 3">
+            <div class="caption">Espacios de Trabajo</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://picsum.photos/500/800?sig=4" alt="Foto 4">
+            <div class="caption">Naturaleza Viva</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://picsum.photos/500/800?sig=5" alt="Foto 5">
+            <div class="caption">Arquitectura Moderna</div>
+        </div>
+        <div class="photo-card">
+            <img src="https://picsum.photos/500/800?sig=6" alt="Foto 6">
+            <div class="caption">Creatividad Sin Límites</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Proyecto Inteligente. Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <style>
+        /* 1. Animaciones únicas para Biografía */
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: #2563eb; box-shadow: 0 0 5px rgba(37, 99, 235, 0.2); }
+            50% { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+            100% { border-color: #2563eb; box-shadow: 0 0 5px rgba(37, 99, 235, 0.2); }
+        }
+
+        /* 2. Estilo único para la tarjeta de Bio */
+        .bio-container {
+            border-left: 8px solid var(--primario); /* Un acento fuerte lateral */
+            position: relative;
+            overflow: hidden;
+            background: white;
+            transition: all 0.4s ease;
+            animation: slideInRight 1s ease-out; /* Entrada desde la derecha */
+        }
+
+        .bio-container:hover {
+            border-left-color: var(--acento);
+            transform: scale(1.02);
+        }
+
+        /* 3. Animación de los items de la cuadrícula */
+        .info-item {
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out forwards;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            transition: background 0.3s;
+        }
+
+        /* Retrasos para que aparezcan uno tras otro */
+        .info-item:nth-child(1) { animation-delay: 0.5s; }
+        .info-item:nth-child(2) { animation-delay: 0.8s; }
+
+        .info-item:hover {
+            background: #e2e8f0;
+            animation: borderGlow 2s infinite; /* El toque único: brilla al pasar el mouse */
+        }
+
+        /* 4. Estilo para el título con subrayado animado */
+        .bio-container h2 {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .bio-container h2::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 4px;
+            bottom: -10px;
+            left: 0;
+            background-color: var(--acento);
+            transition: width 0.6s ease-out 1s; /* Se expande después de que la página carga */
+        }
+
+        body:hover .bio-container h2::after {
+            width: 100%;
+        }
+
+        /* Toque extra: un indicador de "lectura" al inicio */
+        .bio-container::before {
+            content: 'CV';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-weight: bold;
+            color: rgba(37, 99, 235, 0.1);
+            font-size: 4rem;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biografía - Mi Proyecto</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<nav>
+    <a href="index.html" class="logo">MiPortafolio</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="biografia.html">Biografía</a></li>
+        <li><a href="album.html">Álbum</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="bio-container">
+        <h2>Mi Historia</h2>
+        <p>Hola, soy un apasionado por la creación de soluciones digitales. Este proyecto representa mi capacidad para estructurar información de manera limpia y eficiente utilizando estándares modernos.</p>
+
+        <div class="grid-info">
+            <div class="info-item">
+                <h3>Experiencia</h3>
+                <p>Desarrollo Front-end, Maquetación CSS Avanzada y Diseño de Interfaces.</p>
+            </div>
+            <div class="info-item">
+                <h3>Habilidades</h3>
+                <p>HTML5, CSS3, Arquitectura de archivos y Diseño Responsivo.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2024 Proyecto Inteligente. Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>
