@@ -1,127 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <style>
-        /* 1. Animaciones únicas para Biografía */
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes borderGlow {
-            0% { border-color: #2563eb; box-shadow: 0 0 5px rgba(37, 99, 235, 0.2); }
-            50% { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
-            100% { border-color: #2563eb; box-shadow: 0 0 5px rgba(37, 99, 235, 0.2); }
-        }
-
-        /* 2. Estilo único para la tarjeta de Bio */
-        .bio-container {
-            border-left: 8px solid var(--primario); /* Un acento fuerte lateral */
-            position: relative;
-            overflow: hidden;
-            background: white;
-            transition: all 0.4s ease;
-            animation: slideInRight 1s ease-out; /* Entrada desde la derecha */
-        }
-
-        .bio-container:hover {
-            border-left-color: var(--acento);
-            transform: scale(1.02);
-        }
-
-        /* 3. Animación de los items de la cuadrícula */
-        .info-item {
-            opacity: 0;
-            animation: slideInRight 0.8s ease-out forwards;
-            padding: 20px;
-            border-radius: 10px;
-            background: #f1f5f9;
-            transition: background 0.3s;
-        }
-
-        /* Retrasos para que aparezcan uno tras otro */
-        .info-item:nth-child(1) { animation-delay: 0.5s; }
-        .info-item:nth-child(2) { animation-delay: 0.8s; }
-
-        .info-item:hover {
-            background: #e2e8f0;
-            animation: borderGlow 2s infinite; /* El toque único: brilla al pasar el mouse */
-        }
-
-        /* 4. Estilo para el título con subrayado animado */
-        .bio-container h2 {
-            display: inline-block;
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .bio-container h2::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 4px;
-            bottom: -10px;
-            left: 0;
-            background-color: var(--acento);
-            transition: width 0.6s ease-out 1s; /* Se expande después de que la página carga */
-        }
-
-        body:hover .bio-container h2::after {
-            width: 100%;
-        }
-
-        /* Toque extra: un indicador de "lectura" al inicio */
-        .bio-container::before {
-            content: 'CV';
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-weight: bold;
-            color: rgba(37, 99, 235, 0.1);
-            font-size: 4rem;
-        }
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biografía - Mi Proyecto</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Nuestra Historia - Kuromi Glow</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+
+        :root {
+            --morado-neon: #bc61ff;
+            --lila-vivido: #8b5cf6;
+            --negro-profundo: #050505;
+            --gris-oscuro: #111111;
+            --blanco-puro: #ffffff;
+            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--negro-profundo);
+            background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
+            background-size: 40px 40px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--blanco-puro);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            margin: 20px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--morado-neon);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--glow);
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            color: var(--morado-neon);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-shadow: var(--glow);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: var(--blanco-puro);
+            border-radius: 50%;
+            margin: 0 10px 0 20px;
+            display: inline-block;
+        }
+
+        .nav-links li.active::before {
+            background: var(--morado-neon);
+            box-shadow: var(--glow);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--blanco-puro);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--morado-neon);
+            text-shadow: var(--glow);
+        }
+
+        /* --- CONTENIDO HISTORIA --- */
+        main { padding: 40px 20px; max-width: 800px; margin: 0 auto; }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            color: var(--morado-neon);
+            text-shadow: var(--glow);
+            margin-bottom: 10px;
+        }
+
+        .story-card {
+            background: var(--gris-oscuro);
+            border-left: 4px solid var(--morado-neon);
+            padding: 30px;
+            border-radius: 0 20px 20px 0;
+            margin-bottom: 40px;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .story-card:hover {
+            transform: translateX(10px);
+            border-left-width: 8px;
+        }
+
+        .date-tag {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            color: var(--morado-neon);
+            display: block;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .story-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--blanco-puro);
+        }
+
+        .story-card p {
+            font-size: 1rem;
+            opacity: 0.8;
+            color: #e0e0e0;
+        }
+
+        /* Decoración de calaverita */
+        .story-card::after {
+            content: "💀";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            opacity: 0.3;
+        }
+
+        footer { text-align: center; padding: 4rem; opacity: 0.4; font-size: 0.7rem; }
+
+    </style>
 </head>
 <body>
+
 <nav>
-    <a href="index.html" class="logo">MiPortafolio</a>
+    <a href="index.html" class="logo">KUROMI x LOVE</a>
     <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="biografia.html">Biografía</a></li>
-        <li><a href="album.html">Álbum</a></li>
+        <li><a href="biografia.html">Historia</a></li>
+        <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
+        <li class="active"><a href="cartas.html">Cartas</a></li>
+        <li><a href="regalos.html">Regalos</a></li>
     </ul>
 </nav>
 
-<main>
-    <div class="bio-container">
-        <h2>Mi Historia</h2>
-        <p>Hola, soy un apasionado por la creación de soluciones digitales. Este proyecto representa mi capacidad para estructurar información de manera limpia y eficiente utilizando estándares modernos.</p>
 
-        <div class="grid-info">
-            <div class="info-item">
-                <h3>Experiencia</h3>
-                <p>Desarrollo Front-end, Maquetación CSS Avanzada y Diseño de Interfaces.</p>
-            </div>
-            <div class="info-item">
-                <h3>Habilidades</h3>
-                <p>HTML5, CSS3, Arquitectura de archivos y Diseño Responsivo.</p>
-            </div>
-        </div>
+<main>
+    <section class="hero-section">
+        <h1>Nuestra Historia</h1>
+        <p>Un viaje digital que comenzó el 25 de Octubre.</p>
+    </section>
+
+    <div class="story-card">
+        <span class="date-tag">25 OCTUBRE 2025</span>
+        <h3>El Inicio de Todo</h3>
+        <p>Ese día el universo decidió que nuestros caminos debían cruzarse. No fue casualidad, fue el inicio del mejor capítulo de mi vida. Desde el primer mensaje, supe que esto sería diferente.</p>
+    </div>
+
+    <div class="story-card">
+        <span class="date-tag">PRIMEROS PASOS</span>
+        <h3>Conectando Mundos</h3>
+        <p>Aprender sobre ti, tus gustos, tus miedos y lo que te hace reír se convirtió en mi actividad favorita. Cada conversación era un nuevo nivel desbloqueado en esta aventura que llamamos "nosotros".</p>
+    </div>
+
+    <div class="story-card">
+        <span class="date-tag">ACTUALIDAD</span>
+        <h3>Construyendo el Futuro</h3>
+        <p>Hoy no solo somos una pareja, somos el mejor equipo. Como Kuromi, podemos tener nuestro lado rebelde, pero el amor que nos tenemos es lo más real que existe en este mundo digital y físico.</p>
     </div>
 </main>
 
 <footer>
-    <p>&copy; 2024 Proyecto Inteligente. Todos los derechos reservados.</p>
+    <p>LOGS DE MEMORIA ACTUALIZADOS • 2026</p>
 </footer>
+
 </body>
 </html>

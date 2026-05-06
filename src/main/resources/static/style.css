@@ -1,169 +1,140 @@
-/* Estilos Globales */
+@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+
 :root {
-    --primario: #2563eb;
-    --oscuro: #1e293b;
-    --claro: #f8fafc;
-    --acento: #38bdf8;
-    --texto: #334155;
-    --blanco: #ffffff;
+    --morado-neon: #bc61ff;  /* Morado brillante */
+    --lila-vivido: #8b5cf6;  /* Morado medio */
+    --negro-profundo: #050505;
+    --gris-oscuro: #111111;
+    --blanco-puro: #ffffff;
+    --glow: 0 0 15px rgba(188, 97, 255, 0.6); /* El brillo neón */
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: var(--claro);
-    color: var(--texto);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background-color: var(--negro-profundo);
+    /* Fondo más limpio: solo puntos morados muy sutiles */
+    background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
+    background-size: 40px 40px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--blanco-puro);
 }
 
-/* Navegación */
+/* --- Navegación Flotante --- */
 nav {
-    background-color: var(--oscuro);
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background: rgba(17, 17, 17, 0.8);
+    backdrop-filter: blur(10px); /* Efecto cristal */
+    margin: 20px;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    border: 1px solid var(--morado-neon);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: var(--glow);
+    position: sticky;
+    top: 20px;
+    z-index: 1000;
 }
 
 .logo {
-    color: var(--blanco);
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-family: 'Syncopate', sans-serif;
+    color: var(--morado-neon);
     text-decoration: none;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-}
-
-.nav-links li {
-    margin-left: 20px;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-shadow: var(--glow);
 }
 
 .nav-links a {
-    color: var(--blanco);
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
+    color: var(--blanco-puro);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-left: 20px;
+    transition: 0.3s;
 }
 
 .nav-links a:hover {
-    color: var(--acento);
+    color: var(--morado-neon);
+    text-shadow: var(--glow);
 }
 
-/* Contenedor Principal */
-main {
-    flex: 1;
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 20px;
+/* --- Títulos Estilizados --- */
+h2 {
+    font-family: 'Syncopate', sans-serif;
+    font-size: 2.2rem;
+    color: var(--blanco-puro);
+    text-align: center;
+    margin: 3rem 0;
+    letter-spacing: 5px;
+    border-bottom: 2px solid var(--morado-neon);
+    display: inline-block;
     width: 100%;
 }
 
-h2 {
-    font-size: 2.5rem;
-    color: var(--oscuro);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-/* Estilos Home */
-.hero {
-    text-align: center;
-    padding: 4rem 1rem;
-    background: var(--blanco);
+/* --- Contenedores tipo "Card" --- */
+.hero, .bio-container, .info-item {
+    background: var(--gris-oscuro);
+    padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid rgba(188, 97, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 20px auto;
+    max-width: 850px;
+    transition: 0.4s;
 }
 
+.hero:hover, .info-item:hover {
+    border-color: var(--morado-neon);
+    box-shadow: var(--glow);
+    transform: translateY(-5px);
+}
+
+/* --- Botones --- */
 .btn {
     display: inline-block;
-    background: var(--primario);
-    color: var(--blanco);
-    padding: 12px 30px;
-    border-radius: 8px;
+    background: transparent;
+    color: var(--morado-neon);
+    padding: 14px 40px;
+    border-radius: 50px;
     text-decoration: none;
-    margin-top: 20px;
-    transition: background 0.3s;
+    font-family: 'Syncopate', sans-serif;
+    font-size: 0.7rem;
+    border: 2px solid var(--morado-neon);
+    box-shadow: inset 0 0 0px var(--morado-neon);
+    transition: 0.3s;
 }
 
 .btn:hover {
-    background: #1d4ed8;
+    background: var(--morado-neon);
+    color: var(--negro-profundo);
+    box-shadow: var(--glow);
 }
 
-/* Estilos Biografía */
-.bio-container {
-    background: var(--blanco);
-    padding: 3rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+/* --- Arreglo para que se lea el texto --- */
+.info-item h3 {
+    color: var(--morado-neon);
+    margin-bottom: 15px;
+    font-family: 'Syncopate', sans-serif;
+    font-size: 0.9rem;
 }
 
-.grid-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
+.info-item p {
+    color: #ccc;
+    line-height: 1.8;
 }
 
-.info-item {
-    border-left: 4px solid var(--primario);
-    padding-left: 15px;
-}
-
-/* Estilos Álbum */
-.album-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.photo-card {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    height: 300px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.photo-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.caption {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-}
-
-/* Footer */
 footer {
     text-align: center;
-    padding: 2rem;
-    background: var(--oscuro);
-    color: var(--blanco);
-}
-
-@media (max-width: 600px) {
-    nav { flex-direction: column; gap: 10px; }
-    .nav-links li { margin: 0 10px; }
+    padding: 4rem;
+    color: #444;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
 }

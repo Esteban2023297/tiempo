@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regalos Especiales - Kuromi Love</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+
+        :root {
+            --morado-neon: #bc61ff;
+            --lila-vivido: #8b5cf6;
+            --negro-profundo: #050505;
+            --gris-oscuro: #111111;
+            --blanco-puro: #ffffff;
+            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--negro-profundo);
+            background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
+            background-size: 40px 40px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--blanco-puro);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Navegación --- */
+        nav {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            margin: 20px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--morado-neon);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--glow);
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            color: var(--morado-neon);
+            text-decoration: none;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-shadow: var(--glow);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--blanco-puro);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--morado-neon);
+            text-shadow: var(--glow);
+        }
+
+        main { padding: 20px; max-width: 1100px; margin: 0 auto; }
+
+        h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            color: var(--morado-neon);
+            text-align: center;
+            margin: 3rem 0 1.5rem;
+            letter-spacing: 4px;
+            text-shadow: var(--glow);
+        }
+
+        /* --- SECCIÓN FRASCO DE ESTRELLAS --- */
+        .frasco-section {
+            text-align: center;
+            background: var(--gris-oscuro);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--morado-neon);
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .frasco-display {
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--blanco-puro);
+            margin: 20px 0;
+            padding: 25px;
+            border: 2px dashed var(--morado-neon);
+            border-radius: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .btn-magico {
+            background: var(--morado-neon);
+            color: var(--negro-profundo);
+            border: none;
+            padding: 15px 35px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: var(--glow);
+            letter-spacing: 1px;
+        }
+
+        .btn-magico:hover {
+            transform: scale(1.1);
+            background: var(--blanco-puro);
+            box-shadow: 0 0 25px var(--morado-neon);
+        }
+
+        /* --- SECCIÓN CUPONES --- */
+        .cupones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .cupon {
+            background: var(--gris-oscuro);
+            border: 2px dashed var(--morado-neon);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            cursor: pointer;
+        }
+
+        .cupon:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: var(--glow);
+            border-style: solid;
+        }
+
+        .cupon::before {
+            content: "TICKET";
+            position: absolute;
+            top: 12px;
+            right: -25px;
+            background: var(--morado-neon);
+            color: var(--negro-profundo);
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 5px 35px;
+            transform: rotate(45deg);
+        }
+
+        .cupon h3 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: var(--morado-neon);
+            letter-spacing: 1px;
+        }
+
+        .cupon p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem;
+            opacity: 0.4;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">KUROMI x LOVE</a>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="biografia.html">Historia</a></li>
+        <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
+        <li><a href="regalos.html">Regalos</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="frasco-section">
+        <h2>💌 Frasco de Estrellas</h2>
+        <p style="opacity: 0.7; margin-bottom: 10px;">Un mensajito especial para cada momento del día</p>
+        <div class="frasco-display" id="mensaje-texto">
+            Haz clic abajo para abrir una estrella...
+        </div>
+        <button class="btn-magico" onclick="abrirEstrella()">ABRIR ESTRELLA ✨</button>
+    </section>
+
+    <h2>🎫 Mis Cupones de Amor</h2>
+    <div class="cupones-grid">
+        <div class="cupon">
+            <h3>VALE POR: UNA CENA</h3>
+            <p>Válido para tu comida favorita en el lugar que tú elijas. ¡Yo invito! 🍕</p>
+        </div>
+        <div class="cupon">
+            <h3>VALE POR: UN ABRAZO</h3>
+            <p>Un abrazo infinito de esos que reinician el alma. Válido 24/7. 🫂</p>
+        </div>
+        <div class="cupon">
+            <h3>VALE POR: MARATÓN DE PELIS</h3>
+            <p>Tú eliges todas las películas y yo me encargo de los snacks. 🍿</p>
+        </div>
+        <div class="cupon">
+            <h3>VALE POR: UNA SALIDA</h3>
+            <p>Un pase libre para ir a donde tú quieras. Yo seré tu fiel acompañante. 🎡</p>
+        </div>
+        <div class="cupon">
+            <h3>VALE POR: UN BESO</h3>
+            <p>Un beso cargado de mucho amor. Canjeable en cualquier momento. 💜</p>
+        </div>
+        <div class="cupon">
+            <h3>VALE POR: PERDÓN INSTANTÁNEO</h3>
+            <p>Úsalo sabiamente si me porto un poquito mal. ¡Te quiero! 💀🖤</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>SISTEMA DE AMOR KUROMI v1.0 • 2026</p>
+</footer>
+
+<script>
+    const mensajes = [
+        "Eres lo mejor que me ha pasado en la vida. ✨",
+        "Me encanta cuando sonríes, iluminas todo mi mundo. 💜",
+        "Gracias por ser mi compañera en todas las locuras. 💀🖤",
+        "Eres mi persona favorita en todo el universo. 🌎",
+        "Kuromi estaría celosa de lo linda que eres. 💜",
+        "Te quiero muchísimo más de lo que imaginas. 💌",
+        "Eres mi lugar seguro y mi mayor felicidad. 🫂",
+        "Hoy es un día perfecto porque estás tú. ✨",
+        "Cada detalle tuyo me enamora más. 🖤",
+        "No hay nadie en el mundo como tú. Eres única. 💜"
+    ];
+
+    function abrirEstrella() {
+        const display = document.getElementById('mensaje-texto');
+        const indiceAleatorio = Math.floor(Math.random() * mensajes.length);
+
+        display.style.opacity = 0;
+        display.style.transform = "scale(0.9)";
+
+        setTimeout(() => {
+            display.innerText = mensajes[indiceAleatorio];
+            display.style.opacity = 1;
+            display.style.transform = "scale(1)";
+            display.style.borderColor = "var(--blanco-puro)";
+            display.style.boxShadow = "var(--glow)";
+        }, 300);
+    }
+</script>
+
+</body>
+</html>
