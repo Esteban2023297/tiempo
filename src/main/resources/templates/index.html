@@ -1,84 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Kuromi Love</title>
     <style>
-        /* 1. Definición de las Animaciones (Keyframes) */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+
+        :root {
+            --morado-neon: #bc61ff;
+            --lila-vivido: #8b5cf6;
+            --negro-profundo: #050505;
+            --gris-oscuro: #111111;
+            --blanco-puro: #ffffff;
+            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--negro-profundo);
+            background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
+            background-size: 40px 40px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--blanco-puro);
+            min-height: 100vh;
+            overflow: hidden; /* Evita que los corazones activen barras de scroll */
         }
 
-        /* 2. Aplicación de estilos y transiciones al Hero */
+        /* --- NAVEGACIÓN --- */
+        nav {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            margin: 20px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--morado-neon);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--glow);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            color: var(--morado-neon);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-shadow: var(--glow);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li::before {
+            content: "";
+            width: 5px; height: 5px;
+            background: var(--blanco-puro);
+            border-radius: 50%;
+            margin: 0 10px 0 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--blanco-puro);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%); /* Un degradado sutil */
-            border: 1px solid rgba(37, 99, 235, 0.1);
-            transition: transform 0.3s ease;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
         }
 
-        .hero:hover {
-            transform: scale(1.01); /* Pequeño efecto de elevación al pasar el mouse */
-        }
-
-        /* 3. Animando cada elemento con retrasos (delays) */
         .hero h2 {
-            animation: fadeInUp 0.8s ease-out forwards;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 3rem;
+            color: var(--morado-neon);
+            text-shadow: var(--glow);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .hero p {
-            animation: fadeInUp 0.8s ease-out 0.3s forwards; /* Empieza 0.3s después */
-            opacity: 0; /* Para que no se vea antes de la animación */
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
         }
 
-        .hero .btn {
-            animation: fadeInUp 0.8s ease-out 0.6s forwards; /* Empieza 0.6s después */
-            opacity: 0;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Animación para el Logo */
-        .logo {
-            animation: slideInLeft 0.8s ease-out;
-        }
-
-        /* Animación para los enlaces del menú */
-        .nav-links li {
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        /* Efecto de "Pulso" para el botón para que llame la atención */
         .btn {
-            transition: all 0.3s ease;
+            background: var(--morado-neon);
+            color: var(--negro-profundo);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: var(--glow);
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
-            background-color: #1d4ed8;
+            transform: scale(1.1);
+            background: var(--blanco-puro);
+            box-shadow: 0 0 25px var(--morado-neon);
+        }
+
+        /* --- LLUVIA DE CORAZONES (CSS) --- */
+        .corazon {
+            position: absolute;
+            top: -50px;
+            font-size: 1.5rem;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            opacity: 0.4;
+            font-size: 0.7rem;
         }
     </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - Mi Proyecto</title>
-    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+
 <nav>
     <a href="index.html" class="logo">KUROMI x LOVE</a>
     <ul class="nav-links">
@@ -92,14 +170,51 @@
 
 <main>
     <section class="hero">
-        <h2>Bienvenido a mi Web Profesional</h2>
-        <p>Explora mi trayectoria, conoce mi historia y visualiza mis mejores momentos capturados en fotos.</p>
-        <a href="biografia.html" class="btn">Conocer más sobre mí</a>
+        <h2>KUROMI DIGITAL LOVE</h2>
+        <p>Un espacio dedicado a nuestra historia, nuestros recuerdos y el tiempo que pasamos juntos.</p>
+        <a href="biografia.html" class="btn">ENTRAR AL MUNDO</a>
     </section>
 </main>
 
 <footer>
-    <p>&copy; 2024 Proyecto Inteligente. Todos los derechos reservados.</p>
+    <p>PROYECTO KUROMI • 2026</p>
 </footer>
+
+<script>
+    function crearCorazon() {
+        const heart = document.createElement('div');
+        heart.classList.add('corazon');
+
+        // Alternar entre corazones morados y calaveritas
+        const tipos = ['💜', '🖤', '💀', '✨'];
+        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+
+        // Posición horizontal aleatoria
+        heart.style.left = Math.random() * 100 + "vw";
+
+        // Tamaño aleatorio
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+
+        // Duración de caída aleatoria (entre 3 y 7 segundos)
+        const duration = Math.random() * 4 + 3;
+        heart.style.animationDuration = duration + "s";
+
+        // Brillo para los corazones morados
+        if (heart.innerText === '💜') {
+            heart.style.textShadow = "0 0 10px #bc61ff";
+        }
+
+        document.body.appendChild(heart);
+
+        // Borrar el elemento después de que termine de caer
+        setTimeout(() => {
+            heart.remove();
+        }, duration * 1000);
+    }
+
+    // Crear un corazón nuevo cada 300 milisegundos
+    setInterval(crearCorazon, 300);
+</script>
+
 </body>
 </html>

@@ -26,7 +26,13 @@
             color: var(--blanco-puro);
             min-height: 100vh;
             line-height: 1.6;
+            overflow-x: hidden;
         }
+
+        /* BARRA DE DESPLAZAMIENTO PERSONALIZADA */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--negro-profundo); }
+        ::-webkit-scrollbar-thumb { background: var(--gris-oscuro); border: 1px solid var(--morado-neon); border-radius: 10px; }
 
         /* --- NAVEGACIÓN --- */
         nav {
@@ -54,109 +60,54 @@
             letter-spacing: 2px;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links li {
-            display: flex;
-            align-items: center;
-        }
-
+        .nav-links { list-style: none; display: flex; align-items: center; }
+        .nav-links li { display: flex; align-items: center; }
         .nav-links li::before {
-            content: "";
-            width: 5px;
-            height: 5px;
-            background: var(--blanco-puro);
-            border-radius: 50%;
-            margin: 0 10px 0 20px;
-            display: inline-block;
+            content: ""; width: 5px; height: 5px; background: var(--blanco-puro);
+            border-radius: 50%; margin: 0 10px 0 20px; display: inline-block;
         }
-
-        .nav-links li.active::before {
-            background: var(--morado-neon);
-            box-shadow: var(--glow);
-        }
-
         .nav-links a {
-            text-decoration: none;
-            color: var(--blanco-puro);
-            font-weight: 700;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            transition: 0.3s;
+            text-decoration: none; color: var(--blanco-puro); font-weight: 700;
+            font-size: 0.75rem; text-transform: uppercase; transition: 0.3s;
         }
-
-        .nav-links a:hover {
-            color: var(--morado-neon);
-            text-shadow: var(--glow);
-        }
+        .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
 
         /* --- CONTENIDO HISTORIA --- */
-        main { padding: 40px 20px; max-width: 800px; margin: 0 auto; }
+        main { padding: 40px 20px; max-width: 800px; margin: 0 auto; position: relative; z-index: 10; }
 
-        .hero-section {
-            text-align: center;
-            margin-bottom: 60px;
+        .hero-section { text-align: center; margin-bottom: 60px; }
+        .hero-section h1 {
+            font-family: 'Syncopate', sans-serif; font-size: 3rem;
+            text-transform: uppercase; color: var(--morado-neon);
+            text-shadow: var(--glow); margin-bottom: 10px;
+            animation: flicker 3s infinite alternate;
         }
 
-        .hero-section h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            color: var(--morado-neon);
-            text-shadow: var(--glow);
-            margin-bottom: 10px;
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: var(--glow); }
+            20%, 24%, 55% { text-shadow: none; opacity: 0.7; }
         }
 
         .story-card {
-            background: var(--gris-oscuro);
+            background: rgba(17, 17, 17, 0.6);
+            backdrop-filter: blur(8px);
             border-left: 4px solid var(--morado-neon);
             padding: 30px;
             border-radius: 0 20px 20px 0;
             margin-bottom: 40px;
             box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
-            transition: 0.3s;
+            transition: all 0.4s ease;
             position: relative;
         }
 
-        .story-card:hover {
-            transform: translateX(10px);
-            border-left-width: 8px;
-        }
+        .story-card:hover { transform: translateX(10px); border-left-width: 8px; box-shadow: var(--glow); }
+        .date-tag { font-family: 'Syncopate', sans-serif; font-size: 0.8rem; color: var(--morado-neon); display: block; margin-bottom: 15px; letter-spacing: 2px; }
+        .story-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--blanco-puro); }
+        .story-card::after { content: "💀"; position: absolute; top: 20px; right: 20px; font-size: 1.2rem; opacity: 0.3; }
 
-        .date-tag {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.8rem;
-            color: var(--morado-neon);
-            display: block;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-
-        .story-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--blanco-puro);
-        }
-
-        .story-card p {
-            font-size: 1rem;
-            opacity: 0.8;
-            color: #e0e0e0;
-        }
-
-        /* Decoración de calaverita */
-        .story-card::after {
-            content: "💀";
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.2rem;
-            opacity: 0.3;
-        }
+        /* LLUVIA */
+        .corazon { position: fixed; top: -50px; font-size: 1.5rem; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
         footer { text-align: center; padding: 4rem; opacity: 0.4; font-size: 0.7rem; }
 
@@ -170,11 +121,10 @@
         <li><a href="index.html">Inicio</a></li>
         <li><a href="biografia.html">Historia</a></li>
         <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
-        <li class="active"><a href="cartas.html">Cartas</a></li>
+        <li><a href="cartas.html">Cartas</a></li>
         <li><a href="regalos.html">Regalos</a></li>
     </ul>
 </nav>
-
 
 <main>
     <section class="hero-section">
@@ -185,25 +135,70 @@
     <div class="story-card">
         <span class="date-tag">25 OCTUBRE 2025</span>
         <h3>El Inicio de Todo</h3>
-        <p>Ese día el universo decidió que nuestros caminos debían cruzarse. No fue casualidad, fue el inicio del mejor capítulo de mi vida. Desde el primer mensaje, supe que esto sería diferente.</p>
+        <p>Ese día el universo decidió que nuestros caminos debían cruzarse. No fue casualidad, fue el inicio del mejor capítulo de mi vida.</p>
     </div>
 
     <div class="story-card">
         <span class="date-tag">PRIMEROS PASOS</span>
         <h3>Conectando Mundos</h3>
-        <p>Aprender sobre ti, tus gustos, tus miedos y lo que te hace reír se convirtió en mi actividad favorita. Cada conversación era un nuevo nivel desbloqueado en esta aventura que llamamos "nosotros".</p>
+        <p>Cada conversación era un nuevo nivel desbloqueado en esta aventura que llamamos "nosotros".</p>
     </div>
 
     <div class="story-card">
         <span class="date-tag">ACTUALIDAD</span>
         <h3>Construyendo el Futuro</h3>
-        <p>Hoy no solo somos una pareja, somos el mejor equipo. Como Kuromi, podemos tener nuestro lado rebelde, pero el amor que nos tenemos es lo más real que existe en este mundo digital y físico.</p>
+        <p>Como Kuromi, podemos tener nuestro lado rebelde, pero el amor que nos tenemos es lo más real que existe.</p>
     </div>
 </main>
 
-<footer>
-    <p>LOGS DE MEMORIA ACTUALIZADOS • 2026</p>
-</footer>
+<footer><p>LOGS DE MEMORIA ACTUALIZADOS • 2026</p></footer>
 
+<script>
+    // LLUVIA
+    function crearCorazon() {
+        const heart = document.createElement('div');
+        heart.classList.add('corazon');
+        const tipos = ['💜', '🖤', '💀', '✨'];
+        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        const duration = Math.random() * 4 + 3;
+        heart.style.animationDuration = duration + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+    }
+    setInterval(crearCorazon, 300);
+
+    // CURSOR
+    document.addEventListener('mousemove', function(e) {
+        const star = document.createElement('div');
+        star.innerHTML = '✨';
+        star.style.position = 'fixed';
+        star.style.left = e.clientX + 'px';
+        star.style.top = e.clientY + 'px';
+        star.style.fontSize = '12px';
+        star.style.color = '#bc61ff';
+        star.style.pointerEvents = 'none';
+        star.style.zIndex = '9999';
+        document.body.appendChild(star);
+        const anim = star.animate([{opacity: 1, transform: 'scale(1)'}, {opacity: 0, transform: 'scale(0)'}], {duration: 800});
+        anim.onfinish = () => star.remove();
+    });
+
+    // REVELADO AL SCROLL
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    document.querySelectorAll('.story-card').forEach((s) => {
+        s.style.opacity = '0'; s.style.transform = 'translateY(30px)';
+        s.style.transition = 'all 0.8s ease-out';
+        observer.observe(s);
+    });
+</script>
 </body>
 </html>

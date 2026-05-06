@@ -3,125 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Álbum - Mi Proyecto</title>
-    <link rel="stylesheet" href="/static/style.css">
-
+    <title>Galería - Kuromi Glow</title>
     <style>
-        /* --- AJUSTES PARA EL SCROLL HORIZONTAL --- */
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+
+        :root {
+            --morado-neon: #bc61ff;
+            --lila-vivido: #8b5cf6;
+            --negro-profundo: #050505;
+            --gris-oscuro: #111111;
+            --blanco-puro: #ffffff;
+            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
+        }
+
+        /* --- AJUSTES GENERALES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: #0f172a; /* Fondo oscuro para resaltar fotos */
+            background-color: var(--negro-profundo);
+            background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
+            background-size: 40px 40px;
             color: white;
-            overflow-y: hidden; /* Bloqueamos el scroll vertical */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-y: hidden;
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- ANIMACIONES --- */
-        @keyframes revealPhotos {
-            from {
-                opacity: 0;
-                transform: translateX(150px) scale(0.8) rotate(5deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1) rotate(0deg);
-            }
+        /* --- NAVEGACIÓN --- */
+        nav {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            margin: 20px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--morado-neon);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--glow);
+            z-index: 1000;
         }
 
-        /* --- CONTENEDOR PRINCIPAL HORIZONTAL --- */
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            color: var(--morado-neon);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-shadow: var(--glow);
+            letter-spacing: 2px;
+            cursor: help !important; /* Indica que hay algo secreto aquí */
+        }
+
+        .nav-links { list-style: none; display: flex; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: var(--blanco-puro); font-weight: 700;
+            font-size: 0.75rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
+
+        /* --- MODAL SECRETO (EASTER EGG) --- */
+        #secret-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal-content {
+            background: #111;
+            border: 2px solid var(--morado-neon);
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 85%;
+            box-shadow: var(--glow);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* --- TÍTULO GIGANTE DE FONDO --- */
+        .bg-text {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 12vw;
+            color: rgba(188, 97, 255, 0.05);
+            white-space: nowrap;
+            z-index: -1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* --- CONTENEDOR HORIZONTAL --- */
         main {
             flex: 1;
             display: flex;
             align-items: center;
-            overflow-x: auto; /* Activamos el scroll a la derecha */
-            overflow-y: hidden;
+            overflow-x: auto;
             padding: 0 100px;
-            gap: 60px;
-            scroll-behavior: smooth;
-            /* Personalización de la barra de scroll */
-            scrollbar-width: thin;
-            scrollbar-color: #38bdf8 transparent;
-        }
-
-        /* Barra de scroll para Chrome/Safari */
-        main::-webkit-scrollbar {
-            height: 6px;
-        }
-        main::-webkit-scrollbar-thumb {
-            background: #38bdf8;
-            border-radius: 10px;
-        }
-
-        /* --- EL TOQUE ÚNICO: TÍTULO GIGANTE DE FONDO --- */
-        h2 {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 15vw;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.03);
-            white-space: nowrap;
-            z-index: -1;
-            text-transform: uppercase;
-            pointer-events: none;
-        }
-
-        /* --- ESTILO DE LAS TARJETAS DE FOTOS --- */
-        .album-grid {
-            display: flex; /* Cambiamos de Grid a Flex para el flujo horizontal */
             gap: 50px;
+            scroll-behavior: smooth;
+            z-index: 10;
         }
 
+        main::-webkit-scrollbar { height: 6px; }
+        main::-webkit-scrollbar-track { background: transparent; }
+        main::-webkit-scrollbar-thumb {
+            background: var(--morado-neon);
+            border-radius: 10px;
+            box-shadow: var(--glow);
+        }
+
+        /* --- TARJETAS DE FOTOS + EFECTO GLITCH --- */
         .photo-card {
-            flex: 0 0 350px; /* Tamaño fijo para que no se compriman */
+            flex: 0 0 350px;
             height: 500px;
-            border-radius: 30px;
+            border-radius: 25px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--gris-oscuro);
+            border: 1px solid rgba(188, 97, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: revealPhotos 1s ease-out both;
+            animation: reveal 1s ease-out both;
         }
 
-        /* Retraso de animación para efecto cascada */
-        .photo-card:nth-child(1) { animation-delay: 0.1s; }
-        .photo-card:nth-child(2) { animation-delay: 0.3s; }
-        .photo-card:nth-child(3) { animation-delay: 0.5s; }
-        .photo-card:nth-child(4) { animation-delay: 0.7s; }
-        .photo-card:nth-child(5) { animation-delay: 0.9s; }
-        .photo-card:nth-child(6) { animation-delay: 1.1s; }
+        @keyframes reveal {
+            from { opacity: 0; transform: translateX(100px) scale(0.9); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
 
         .photo-card:hover {
-            transform: translateY(-20px) scale(1.05);
-            border-color: #38bdf8;
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+            transform: translateY(-20px);
+            border-color: var(--morado-neon);
+            box-shadow: var(--glow);
         }
 
         .photo-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: saturate(0.5); /* Toque artístico: un poco desaturado */
-            transition: 0.5s;
+            filter: grayscale(0.5);
+            transition: 0.6s;
         }
 
         .photo-card:hover img {
-            filter: saturate(1.2); /* Vuelve el color al pasar el mouse */
+            filter: grayscale(0) saturate(1.2);
+            transform: scale(1.1);
+            animation: glitch-img 0.2s infinite;
+        }
+
+        @keyframes glitch-img {
+            0% { clip-path: inset(10% 0 30% 0); transform: translate(-5px); }
+            20% { clip-path: inset(30% 0 10% 0); transform: translate(5px); }
+            40% { clip-path: inset(50% 0 5% 0); transform: translate(-5px); }
+            60% { clip-path: inset(0 0 70% 0); transform: translate(5px); }
+            80% { clip-path: inset(20% 0 20% 0); transform: translate(-5px); }
+            100% { clip-path: inset(10% 0 30% 0); transform: translate(5px); }
         }
 
         .caption {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            color: white;
-            font-weight: 600;
+            bottom: 0; left: 0; right: 0;
+            padding: 40px 20px 20px;
+            background: linear-gradient(transparent, rgba(17, 17, 17, 0.95));
+            color: var(--morado-neon);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            text-align: center;
             transform: translateY(20px);
             opacity: 0;
             transition: 0.4s;
@@ -132,67 +188,200 @@
             opacity: 1;
         }
 
-        /* --- FOOTER FIJO --- */
-        footer {
-            background: transparent;
-            padding: 20px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
+        /* --- MENÚ CONTEXTUAL --- */
+        #custom-menu {
+            position: fixed;
+            display: none;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--morado-neon);
+            box-shadow: var(--glow);
+            border-radius: 10px;
+            z-index: 10000;
+            width: 220px;
+            padding: 10px 0;
+            animation: fadeIn 0.2s ease-out;
         }
 
-        nav {
-            background: rgba(15, 23, 42, 0.8) !important;
-            backdrop-filter: blur(10px);
+        .menu-item {
+            padding: 10px 20px;
+            font-size: 0.75rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .menu-item:hover { background: var(--morado-neon); color: var(--negro-profundo); }
+        .menu-item.header { font-family: 'Syncopate', sans-serif; font-size: 0.6rem; color: var(--morado-neon); cursor: default; }
+        .menu-divider { height: 1px; background: rgba(188, 97, 255, 0.2); margin: 5px 0; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* LLUVIA */
+        .corazon {
+            position: fixed; top: -50px; font-size: 1.5rem;
+            user-select: none; pointer-events: none; z-index: 1;
+            animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
+
 <nav>
     <a href="index.html" class="logo">KUROMI x LOVE</a>
     <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="biografia.html">Historia</a></li>
-        <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
+        <li><a href="nuestro-mundo.html">Mundo</a></li>
         <li><a href="cartas.html">Cartas</a></li>
         <li><a href="regalos.html">Regalos</a></li>
     </ul>
 </nav>
 
-<main>
-    <h2>GALERÍA</h2> <!-- Título decorativo de fondo -->
+<div id="secret-modal">
+    <div class="modal-content">
+        <h2 style="font-family:'Syncopate'; color:var(--morado-neon); margin-bottom:15px;">LOG DE ACCESO PRIVADO</h2>
+        <p style="color:white; font-family:'Plus Jakarta Sans'; line-height:1.6; font-size: 0.9rem;">
+            "Si encontraste esto, es porque realmente conoces mi mundo. Eres la curiosidad que ilumina mi sistema. Te amo infinitamente. 💀💜"
+        </p>
+        <button onclick="document.getElementById('secret-modal').style.display='none'"
+                style="margin-top:25px; background:var(--morado-neon); border:none; padding:12px 25px; border-radius:10px; cursor:pointer; font-weight:bold; color:black; font-family:'Syncopate'; font-size: 0.6rem;">
+            CERRAR SESIÓN
+        </button>
+    </div>
+</div>
 
-    <div class="album-grid">
-        <div class="photo-card">
-            <!-- Cambia 'img/tu-foto.jpg' por el nombre real de tu archivo -->
-            <img src="img/foto1.jpg" alt="Exploración Urbana">
-            <div class="caption">Exploración Urbana</div>
-        </div>
-        <div class="photo-card">
-            <img src="img/foto2.jpg" alt="Tecnología y Futuro">
-            <div class="caption">Tecnología y Futuro</div>
-        </div>
-        <div class="photo-card">
-            <img src="img/foto3.jpg" alt="Espacios de Trabajo">
-            <div class="caption">Espacios de Trabajo</div>
-        </div>
-        <div class="photo-card">
-            <img src="img/foto4.jpg" alt="Naturaleza Viva">
-            <div class="caption">Naturaleza Viva</div>
-        </div>
-        <div class="photo-card">
-            <img src="img/foto5.jpg" alt="Arquitectura Moderna">
-            <div class="caption">Arquitectura Moderna</div>
-        </div>
-        <div class="photo-card">
-            <img src="img/foto6.jpg" alt="Creatividad Sin Límites">
-            <div class="caption">Creatividad Sin Límites</div>
-        </div>
+<div class="bg-text">MEMORIES</div>
+
+<div id="custom-menu">
+    <div class="menu-item header">SISTEMA KUROMI v1.0</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" onclick="location.href='index.html'">🏠 VOLVER AL INICIO</div>
+    <div class="menu-item" onclick="alert('¡Eres la persona más especial del mundo! 💜')">💌 UN MENSAJE PARA TI</div>
+    <div class="menu-item" onclick="location.href='regalos.html'">🎁 RECLAMAR UN BESO</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item header" style="text-align: center; opacity: 0.7;">TE AMO MUCHO 💀🖤</div>
+</div>
+
+<main>
+    <div class="photo-card" style="animation-delay: 0.1s;">
+        <img src="img/foto1.jpg" alt="Momento 1">
+        <div class="caption">NUESTRO COMIENZO 💜</div>
+    </div>
+    <div class="photo-card" style="animation-delay: 0.3s;">
+        <img src="img/foto2.jpg" alt="Momento 2">
+        <div class="caption">RISAS COMPARTIDAS 💀</div>
+    </div>
+    <div class="photo-card" style="animation-delay: 0.5s;">
+        <img src="img/foto3.jpg" alt="Momento 3">
+        <div class="caption">AVENTURAS JUNTOS ✨</div>
+    </div>
+    <div class="photo-card" style="animation-delay: 0.7s;">
+        <img src="img/foto4.jpg" alt="Momento 4">
+        <div class="caption">TU SONRISA FAVORITA 💜</div>
+    </div>
+    <div class="photo-card" style="animation-delay: 0.9s;">
+        <img src="img/foto5.jpg" alt="Momento 5">
+        <div class="caption">BAJO LAS ESTRELLAS 🌌</div>
+    </div>
+    <div class="photo-card" style="animation-delay: 1.1s;">
+        <img src="img/foto6.jpg" alt="Momento 6">
+        <div class="caption">PARA SIEMPRE 🖤</div>
     </div>
 </main>
 
 <footer>
-    <p>&copy; 2024 Proyecto Inteligente. Todos los derechos reservados.</p>
+    <p>SISTEMA DE ARCHIVOS VISUALES • 2026</p>
 </footer>
+
+<script>
+    // 1. MENSAJES OCULTOS EN LA CONSOLA (PC)
+    console.log("%c SISTEMA KUROMI v1.0 ", "background: #bc61ff; color: #000; font-size: 20px; font-weight: bold; padding: 10px; border-radius: 5px;");
+    console.log("%c'Eres mi bug favorito en este código llamado vida.'", "color: #bc61ff; font-style: italic; font-size: 14px;");
+
+    // 2. GESTO SECRETO MULTIPLATAFORMA (Logo Long Press)
+    const logo = document.querySelector('.logo');
+    let timer;
+
+    function startTimer(e) {
+        // Evita que el click normal dispare el timer si solo es un toque rápido
+        timer = setTimeout(() => {
+            document.getElementById('secret-modal').style.display = 'flex';
+        }, 2500); // 2.5 segundos para activar
+    }
+
+    function clearTimer() {
+        clearTimeout(timer);
+    }
+
+    logo.addEventListener('mousedown', startTimer);
+    logo.addEventListener('touchstart', startTimer);
+    logo.addEventListener('mouseup', clearTimer);
+    logo.addEventListener('mouseleave', clearTimer);
+    logo.addEventListener('touchend', clearTimer);
+
+    // 3. LLUVIA DE CORAZONES Y CALAVERAS
+    function crearCorazon() {
+        const heart = document.createElement('div');
+        heart.classList.add('corazon');
+        const tipos = ['💜', '🖤', '💀', '✨'];
+        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        const duration = Math.random() * 4 + 3;
+        heart.style.animationDuration = duration + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+    }
+    setInterval(crearCorazon, 400);
+
+    // 4. ESTELA DEL MOUSE
+    document.addEventListener('mousemove', function(e) {
+        const star = document.createElement('div');
+        star.innerHTML = '✨';
+        star.style.position = 'fixed';
+        star.style.left = e.clientX + 'px';
+        star.style.top = e.clientY + 'px';
+        star.style.fontSize = '12px';
+        star.style.color = '#bc61ff';
+        star.style.pointerEvents = 'none';
+        star.style.zIndex = '9999';
+        document.body.appendChild(star);
+        const anim = star.animate([
+            { opacity: 1, transform: 'scale(1)' },
+            { opacity: 0, transform: 'scale(0)' }
+        ], { duration: 800 });
+        anim.onfinish = () => star.remove();
+    });
+
+    // 5. SCROLL HORIZONTAL CON RUEDA
+    const scrollContainer = document.querySelector('main');
+    scrollContainer.addEventListener('wheel', (evt) => {
+        evt.preventDefault();
+        scrollContainer.scrollLeft += evt.deltaY;
+    });
+
+    // 6. MENÚ CONTEXTUAL LOGIC
+    const menu = document.getElementById('custom-menu');
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        menu.style.display = 'block';
+        menu.style.left = e.clientX + 'px';
+        menu.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('click', () => { menu.style.display = 'none'; });
+</script>
+
 </body>
 </html>

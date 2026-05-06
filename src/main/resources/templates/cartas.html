@@ -25,9 +25,10 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--blanco-puro);
             min-height: 100vh;
+            overflow-x: hidden; /* Evita scroll horizontal por la lluvia */
         }
 
-        /* --- NAVEGACIÓN ACTUALIZADA --- */
+        /* --- NAVEGACIÓN --- */
         nav {
             background: rgba(17, 17, 17, 0.8);
             backdrop-filter: blur(10px);
@@ -64,18 +65,15 @@
             align-items: center;
         }
 
-        /* Puntos decorativos del menú */
         .nav-links li::before {
             content: "";
-            width: 5px;
-            height: 5px;
+            width: 5px; height: 5px;
             background: var(--blanco-puro);
             border-radius: 50%;
             margin: 0 10px 0 20px;
             display: inline-block;
         }
 
-        /* Punto morado para la página activa */
         .nav-links li.active::before {
             background: var(--morado-neon);
             box-shadow: var(--glow);
@@ -96,7 +94,13 @@
             text-shadow: var(--glow);
         }
 
-        main { padding: 20px; max-width: 1100px; margin: 0 auto; }
+        main {
+            padding: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10; /* Por encima de la lluvia */
+        }
 
         h2 {
             font-family: 'Syncopate', sans-serif;
@@ -185,12 +189,29 @@
             text-align: center;
         }
 
+        /* --- ESTILOS LLUVIA --- */
+        .corazon {
+            position: fixed; /* Fixed para que cubra toda la pantalla al bajar */
+            top: -50px;
+            font-size: 1.5rem;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1; /* Por debajo de cartas y nav */
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
         footer {
             text-align: center;
             padding: 4rem;
             opacity: 0.4;
             font-size: 0.7rem;
             letter-spacing: 3px;
+            position: relative;
+            z-index: 10;
         }
     </style>
 </head>
@@ -252,6 +273,34 @@
 <footer>
     <p>SISTEMA DE AMOR KUROMI • 2026</p>
 </footer>
+
+<script>
+    function crearCorazon() {
+        const heart = document.createElement('div');
+        heart.classList.add('corazon');
+
+        const tipos = ['💜', '🖤', '💀', '✨'];
+        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+
+        const duration = Math.random() * 4 + 3;
+        heart.style.animationDuration = duration + "s";
+
+        if (heart.innerText === '💜') {
+            heart.style.textShadow = "0 0 10px #bc61ff";
+        }
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, duration * 1000);
+    }
+
+    setInterval(crearCorazon, 300);
+</script>
 
 </body>
 </html>

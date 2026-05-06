@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro Mundo - Kuromi Cyber Love</title>
-
+    <title>Nuestro Mundo - Kuromi Glow</title>
     <style>
+        /* TU CÓDIGO CSS (SIN EDITAR) */
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
 
         :root {
@@ -29,9 +29,27 @@
             background-size: 40px 40px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--blanco-puro);
+            overflow-x: hidden;
             min-height: 100vh;
         }
 
+        /* --- ESTILOS PARA LA LLUVIA (ESTO FALTABA) --- */
+        .corazon {
+            position: fixed;
+            top: -50px;
+            z-index: 1; /* Para que pase por detrás del contenido principal */
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        /* --- Navegación Flotante --- */
         nav {
             background: rgba(17, 17, 17, 0.8);
             backdrop-filter: blur(10px);
@@ -57,11 +75,6 @@
             text-shadow: var(--glow);
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-        }
-
         .nav-links a {
             text-decoration: none;
             color: var(--blanco-puro);
@@ -77,95 +90,68 @@
             text-shadow: var(--glow);
         }
 
-        main {
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
         h2 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--blanco-puro);
             text-align: center;
             margin: 3rem 0;
             letter-spacing: 5px;
             border-bottom: 2px solid var(--morado-neon);
-            display: block;
-            padding-bottom: 10px;
+            display: inline-block;
+            width: 100%;
         }
 
-        .section-card {
+        .hero, .info-item {
+            position: relative;
+            z-index: 10; /* Para que el texto esté sobre la lluvia */
             background: var(--gris-oscuro);
             padding: 3rem;
             border-radius: 20px;
             border: 1px solid rgba(188, 97, 255, 0.3);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin: 40px auto;
-            text-align: center;
+            margin: 20px auto;
+            max-width: 850px;
+            transition: 0.4s;
         }
 
-        .contador-diseno {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 1.8rem;
-            color: var(--morado-neon);
-            text-shadow: var(--glow);
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .contador-diseno span {
-            background: rgba(188, 97, 255, 0.1);
-            padding: 15px 25px;
-            border-radius: 15px;
-            border: 1px solid var(--morado-neon);
-        }
-
-        .spotify-container {
-            margin-top: 20px;
-            border: 1px solid var(--morado-neon);
-            border-radius: 15px;
-            overflow: hidden;
+        .hero:hover, .info-item:hover {
+            border-color: var(--morado-neon);
             box-shadow: var(--glow);
+            transform: translateY(-5px);
         }
 
-        .postit-grid {
-            display: grid;
-            justify-content: center;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin: 60px auto;
-            width: 100%;
-        }
-
-        .postit {
-            background: var(--gris-oscuro);
-            padding: 30px;
-            border: 1px solid var(--morado-neon);
-            border-left: 10px solid var(--morado-neon);
-            border-radius: 5px;
-            transform: rotate(-2deg);
-            transition: 0.3s;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
-        }
-
-        .postit:nth-child(even) {
-            transform: rotate(2deg);
-            border-left-color: var(--blanco-puro);
-        }
-
-        .postit:hover {
-            transform: scale(1.1) rotate(0deg);
-            box-shadow: var(--glow);
+        .btn {
+            position: relative;
             z-index: 10;
+            display: inline-block;
+            background: transparent;
+            color: var(--morado-neon);
+            padding: 14px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            border: 2px solid var(--morado-neon);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--morado-neon);
+            color: var(--negro-profundo);
+            box-shadow: var(--glow);
+        }
+
+        .info-item h3 {
+            color: var(--morado-neon);
+            margin-bottom: 15px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .info-item p {
+            color: #ccc;
+            line-height: 1.8;
         }
 
         footer {
@@ -174,81 +160,99 @@
             color: #444;
             font-size: 0.7rem;
             letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .neon-flicker {
+            animation: flicker 2s infinite alternate;
+        }
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { text-shadow: var(--glow); }
+            20%, 24%, 55% { text-shadow: none; opacity: 0.7; }
         }
     </style>
 </head>
 <body>
 
-<<nav>
+<nav>
     <a href="index.html" class="logo">KUROMI x LOVE</a>
-    <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="biografia.html">Historia</a></li>
-        <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
-        <li><a href="cartas.html">Cartas</a></li>
-        <li><a href="regalos.html">Regalos</a></li>
-    </ul>
+    <div class="nav-links">
+        <a href="index.html">Inicio</a>
+        <a href="biografia.html">Historia</a>
+        <a href="nuestro-mundo.html">Nuestro Mundo</a>
+        <a href="cartas.html">Cartas</a>
+        <a href="regalos.html">Regalos</a>
+    </div>
 </nav>
 
 <main>
-    <section class="section-card">
-        <h2>Nuestro Tiempo</h2>
-        <div id="contador" class="contador-diseno">Iniciando nuestra historia...</div>
-        <p style="margin-top:20px; opacity:0.7;">Desde el 25 de Octubre de 2025 cada latido es por ti. 🖤</p>
+    <section class="hero">
+        <h2 class="neon-flicker">Nuestro Mundo 🌌</h2>
+        <p style="text-align: center; opacity: 0.8;">Un espacio único donde solo existimos nosotros, nuestras reglas y nuestra propia galaxia.</p>
     </section>
 
-    <section class="section-card">
-        <h2>Vibe Check 🎧</h2>
-        <div class="spotify-container">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1EIX9v4o8Ym6fO?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
-    </section>
+    <div class="info-item">
+        <h3>Nuestros Gustos</h3>
+        <p>Desde ver películas hasta compartir canciones que nos recuerdan el uno al otro. Cada detalle cuenta en nuestro universo compartido.</p>
+    </div>
 
-    <h2>Notas para ti</h2>
-    <section class="postit-grid">
-        <div class="postit">
-            <p>Eres la pieza que le faltaba a mi mundo. ✨</p>
-        </div>
-        <div class="postit">
-            <p>Gracias por ser mi lugar seguro. 🖤💀</p>
-        </div>
-        <div class="postit">
-            <p>Contigo todo es más brillante (y morado). 💜</p>
-        </div>
-        <div class="postit">
-            <p>Eres mi persona favorita en el universo. 🍕</p>
-        </div>
-    </section>
+    <div class="info-item">
+        <h3>Metas Juntos</h3>
+        <p>Construir un futuro donde siempre haya risas, apoyo y mucho amor. Cada día es un paso más hacia todo lo que soñamos.</p>
+    </div>
+
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="regalos.html" class="btn">VER REGALOS ESPECIALES</a>
+    </div>
 </main>
 
 <footer>
-    <p>KUROMI THEME PROJECT • 2026</p>
+    <p>SISTEMA KUROMI v1.0 • 2026</p>
 </footer>
 
 <script>
-    const fechaInicio = new Date(2025, 9, 25);
+    // ESTELA DE ESTRELLAS
+    document.addEventListener('mousemove', function(e) {
+        const star = document.createElement('div');
+        star.innerHTML = '✨';
+        star.style.position = 'fixed';
+        star.style.left = e.clientX + 'px';
+        star.style.top = e.clientY + 'px';
+        star.style.fontSize = '12px';
+        star.style.pointerEvents = 'none';
+        star.style.color = '#bc61ff';
+        star.style.textShadow = '0 0 5px #bc61ff';
+        star.style.zIndex = '9999';
+        document.body.appendChild(star);
 
-    function actualizarContador() {
-        const ahora = new Date();
-        const diferencia = ahora - fechaInicio;
+        const anim = star.animate([
+            { opacity: 1, transform: 'translateY(0) scale(1)' },
+            { opacity: 0, transform: 'translateY(20px) scale(0)' }
+        ], { duration: 800 });
 
-        // Si la fecha es futura, mostramos ceros o un mensaje
-        if (diferencia < 0) {
-            document.getElementById('contador').innerHTML = "<span>0d</span> <span>0h</span> <span>0m</span> <span>0s</span>";
-            return;
+        anim.onfinish = () => star.remove();
+    });
+
+    // LLUVIA DE CORAZONES
+    function crearCorazon() {
+        const heart = document.createElement('div');
+        heart.classList.add('corazon');
+        const tipos = ['💜', '🖤', '💀', '✨'];
+        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        const duration = Math.random() * 4 + 3;
+        heart.style.animationDuration = duration + "s";
+
+        if (heart.innerText === '💜') {
+            heart.style.textShadow = "0 0 10px #bc61ff";
         }
 
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-        document.getElementById('contador').innerHTML =
-            `<span>${dias}d</span> <span>${horas}h</span> <span>${minutos}m</span> <span>${segundos}s</span>`;
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, duration * 1000);
     }
 
-    setInterval(actualizarContador, 1000);
-    actualizarContador();
+    setInterval(crearCorazon, 300);
 </script>
 
 </body>
