@@ -25,108 +25,41 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--blanco-puro);
             min-height: 100vh;
-            overflow-x: hidden; /* Evita scroll horizontal por la lluvia */
+            overflow-x: hidden;
         }
 
-        /* --- NAVEGACIÓN --- */
         nav {
-            background: rgba(17, 17, 17, 0.8);
-            backdrop-filter: blur(10px);
-            margin: 20px;
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            border: 1px solid var(--morado-neon);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--glow);
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
+            background: rgba(17, 17, 17, 0.8); backdrop-filter: blur(10px);
+            margin: 20px; padding: 1.2rem 2.5rem; border-radius: 50px;
+            border: 1px solid var(--morado-neon); display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: var(--glow); position: sticky; top: 20px; z-index: 1000;
         }
+        .logo { font-family: 'Syncopate', sans-serif; color: var(--morado-neon); text-decoration: none; font-size: 1.2rem; text-shadow: var(--glow); letter-spacing: 2px; }
+        .nav-links { list-style: none; display: flex; align-items: center; }
+        .nav-links li { display: flex; align-items: center; }
+        .nav-links li::before { content: ""; width: 5px; height: 5px; background: var(--blanco-puro); border-radius: 50%; margin: 0 10px 0 20px; display: inline-block; }
+        .nav-links li.active::before { background: var(--morado-neon); box-shadow: var(--glow); }
+        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
 
-        .logo {
-            font-family: 'Syncopate', sans-serif;
-            color: var(--morado-neon);
-            text-decoration: none;
-            font-size: 1.2rem;
-            text-shadow: var(--glow);
-            letter-spacing: 2px;
-        }
+        main { padding: 20px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 10; }
+        h2 { font-family: 'Syncopate', sans-serif; font-size: 2rem; color: var(--blanco-puro); text-align: center; margin: 3rem 0; letter-spacing: 5px; text-shadow: var(--glow); }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links li {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-links li::before {
-            content: "";
-            width: 5px; height: 5px;
-            background: var(--blanco-puro);
-            border-radius: 50%;
-            margin: 0 10px 0 20px;
-            display: inline-block;
-        }
-
-        .nav-links li.active::before {
-            background: var(--morado-neon);
-            box-shadow: var(--glow);
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--blanco-puro);
-            font-weight: 700;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            transition: 0.3s;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a:hover {
-            color: var(--morado-neon);
-            text-shadow: var(--glow);
-        }
-
-        main {
-            padding: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10; /* Por encima de la lluvia */
-        }
-
-        h2 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 2rem;
-            color: var(--blanco-puro);
-            text-align: center;
-            margin: 3rem 0;
-            letter-spacing: 5px;
-            text-shadow: var(--glow);
-        }
-
-        /* --- GRID DE CARTAS --- */
-        .cartas-grid {
+        .fotos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
             padding: 20px;
         }
 
-        .carta-container {
+        .foto-container {
             perspective: 1000px;
-            height: 380px;
+            height: 350px;
             cursor: pointer;
         }
 
-        .carta-inner {
+        .foto-inner {
             position: relative;
             width: 100%;
             height: 100%;
@@ -134,11 +67,11 @@
             transform-style: preserve-3d;
         }
 
-        .carta-container:hover .carta-inner {
+        .foto-container:hover .foto-inner {
             transform: rotateY(180deg);
         }
 
-        .carta-front, .carta-back {
+        .foto-front, .foto-back {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -149,57 +82,64 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-        }
-
-        .carta-front {
-            background: var(--gris-oscuro);
+            padding: 15px;
             box-shadow: var(--glow);
         }
 
-        .carta-front img {
-            width: 90%;
-            height: 75%;
-            object-fit: cover;
-            border: 1px solid var(--morado-neon);
-            margin-bottom: 15px;
-            border-radius: 5px;
+        .foto-front {
+            background: var(--gris-oscuro);
         }
 
-        .carta-front span {
+        .foto-front img {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+            border: 1px solid var(--morado-neon);
+            border-radius: 8px;
+            display: block;
+        }
+
+        .foto-front .numero {
             font-family: 'Syncopate', sans-serif;
             font-size: 0.7rem;
             color: var(--morado-neon);
-            letter-spacing: 1px;
+            margin-top: 10px;
+            letter-spacing: 2px;
         }
 
-        .carta-back {
-            background: #fdfdfd;
-            color: #222;
+        .foto-back {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--blanco-puro);
             transform: rotateY(180deg);
-            background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
-            background-size: 100% 28px;
-            padding: 40px 25px;
+            padding: 25px 20px;
+            box-shadow: 0 0 30px rgba(188, 97, 255, 0.4);
         }
 
-        .carta-back p {
+        .foto-back p {
             font-family: 'Caveat', cursive;
-            font-size: 1.5rem;
-            line-height: 1.4;
+            font-size: 1.4rem;
+            line-height: 1.6;
             text-align: center;
+            color: var(--blanco-puro);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-weight: 700;
         }
 
-        /* --- ESTILOS LLUVIA --- */
+        .foto-back .corazon-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(188, 97, 255, 0.8));
+        }
+
         .corazon {
-            position: fixed; /* Fixed para que cubra toda la pantalla al bajar */
+            position: fixed;
             top: -50px;
             font-size: 1.5rem;
             user-select: none;
             pointer-events: none;
-            z-index: 1; /* Por debajo de cartas y nav */
+            z-index: 1;
             animation: fall linear forwards;
         }
-
         @keyframes fall {
             to { transform: translateY(110vh) rotate(360deg); }
         }
@@ -213,93 +153,240 @@
             position: relative;
             z-index: 10;
         }
+
+        @media (max-width: 768px) {
+            .fotos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            .foto-container {
+                height: 280px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="index.html" class="logo">KUROMI x LOVE</a>
+    <a href="/" class="logo">KUROMI x LOVE</a>
     <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="biografia.html">Historia</a></li>
-        <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
-        <li class="active"><a href="cartas.html">Cartas</a></li>
-        <li><a href="regalos.html">Regalos</a></li>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/biografia">Historia</a></li>
+        <li><a href="/nuestro-mundo">Nuestro Mundo</a></li>
+        <li class="active"><a href="/cartas">Cartas</a></li>
+        <li><a href="/regalos">Regalos</a></li>
     </ul>
 </nav>
 
 <main>
-    <h2>Mis Cartas para Ti 💌</h2>
+    <h2>Nuestros 204 Momentos Especiales 💜</h2>
+    <div class="fotos-grid">
 
-    <div class="cartas-grid">
-        <div class="carta-container">
-            <div class="carta-inner">
-                <div class="carta-front">
-                    <img src="tu-foto1.jpg" alt="Recuerdo 1">
-                    <span>Click para leer 💜</span>
+        <!-- ==========================================
+             FOTO 1 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/static/img/jpg1.png" alt="Recuerdo1">
+                    <div class="numero">MOMENTO 1</div>
                 </div>
-                <div class="carta-back">
-                    <p>Aquí escribes tu primera carta. "Desde el primer día supe que eras la persona que iluminaría mi mundo..."</p>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Desde el primer día supe que eras la persona que iluminaría mi mundo...</p>
                 </div>
             </div>
         </div>
 
-        <div class="carta-container">
-            <div class="carta-inner">
-                <div class="carta-front">
-                    <img src="tu-foto2.jpg" alt="Recuerdo 2">
-                    <span>Nuestro momento 💀</span>
+        <!-- ==========================================
+             FOTO 2 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg2.png" alt="Recuerdo 2">
+                    <div class="numero">MOMENTO 2</div>
                 </div>
-                <div class="carta-back">
-                    <p>Gracias por cada risa, por cada locura y por estar siempre ahí, incluso en los días negros.</p>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Nuestro momento favorito, grabado para siempre en mi corazón 💜</p>
                 </div>
             </div>
         </div>
 
-        <div class="carta-container">
-            <div class="carta-inner">
-                <div class="carta-front">
-                    <img src="tu-foto3.jpg" alt="Recuerdo 3">
-                    <span>Para siempre 💜</span>
+        <!-- ==========================================
+             FOTO 3 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg3.png" alt="Recuerdo 3">
+                    <div class="numero">MOMENTO 3</div>
                 </div>
-                <div class="carta-back">
-                    <p>No importa cuántas estrellas haya en el cielo, tú siempre serás la que más brilla para mí.</p>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Cada sonrisa tuya es mi razón para sonreír</p>
                 </div>
             </div>
         </div>
+
+        <!-- ==========================================
+             FOTO 4 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg4.png" alt="Recuerdo 4">
+                    <div class="numero">MOMENTO 4</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Contigo cada instante es mágico ✨</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             FOTO 5 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg5.png" alt="Recuerdo 5">
+                    <div class="numero">MOMENTO 5</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Eres mi sueño hecho realidad 🖤</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             FOTO 6 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg6.png" alt="Recuerdo 6">
+                    <div class="numero">MOMENTO 6</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Un recuerdo inolvidable juntos 💜</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             FOTO 7 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg7.png" alt="Recuerdo 7">
+                    <div class="numero">MOMENTO 7</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Momento especial guardado en mi corazón 🖤</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             FOTO 8 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg8.png" alt="Recuerdo 8">
+                    <div class="numero">MOMENTO 8</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Contigo todo es mejor ✨</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             FOTO 9 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg9.png" alt="Recuerdo 9">
+                    <div class="numero">MOMENTO 9</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Eres mi persona favorita 💀</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             FOTO 10 - CAMBIA: src y el número de momento
+             ========================================== -->
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="static/img/jpg1.png" alt="Recuerdo 10">
+                    <div class="numero">MOMENTO 10</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Este momento fue mágico 💜</p>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        =====================================================
+        COPIA Y PEGA DESDE AQUÍ PARA AGREGAR MÁS FOTOS
+        =====================================================
+
+        <div class="foto-container">
+            <div class="foto-inner">
+                <div class="foto-front">
+                    <img src="/img/jpg11.png" alt="Recuerdo 11">
+                    <div class="numero">MOMENTO 11</div>
+                </div>
+                <div class="foto-back">
+                    <div class="corazon-icon">💜</div>
+                    <p>Tu mensaje aquí</p>
+                </div>
+            </div>
+        </div>
+
+        =====================================================
+        CAMBIA:
+        - src="/img/jpg11.png" → por el nombre de tu archivo
+        - MOMENTO 11 → por el número que corresponda
+        - "Tu mensaje aquí" → por tu mensaje personalizado
+        =====================================================
+        -->
+
+        <!-- Agrega más fotos copiando y pegando el bloque de arriba -->
+        <!-- Necesitas 194 fotos más para llegar a 204 -->
+
     </div>
 </main>
 
-<footer>
-    <p>SISTEMA DE AMOR KUROMI • 2026</p>
-</footer>
+<footer><p>SISTEMA DE AMOR KUROMI • 2026</p></footer>
 
 <script>
-    function crearCorazon() {
-        const heart = document.createElement('div');
-        heart.classList.add('corazon');
-
-        const tipos = ['💜', '🖤', '💀', '✨'];
-        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
-
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = Math.random() * 20 + 10 + "px";
-
-        const duration = Math.random() * 4 + 3;
-        heart.style.animationDuration = duration + "s";
-
-        if (heart.innerText === '💜') {
-            heart.style.textShadow = "0 0 10px #bc61ff";
-        }
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, duration * 1000);
-    }
-
-    setInterval(crearCorazon, 300);
+    // LLUVIA DE CORAZONES
+    setInterval(() => {
+        const h = document.createElement('div');
+        h.className='corazon';
+        h.innerText=['💜','🖤','✨','💀'][Math.floor(Math.random()*4)];
+        h.style.left=Math.random()*100+'vw';
+        h.style.animationDuration=(Math.random()*4+3)+'s';
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(), 7000);
+    }, 300);
 </script>
 
 </body>

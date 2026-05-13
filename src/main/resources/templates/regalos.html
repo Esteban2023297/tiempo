@@ -28,32 +28,15 @@
             overflow-x: hidden;
         }
 
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: var(--negro-profundo); }
-        ::-webkit-scrollbar-thumb { background: var(--gris-oscuro); border: 1px solid var(--morado-neon); border-radius: 10px; }
-
         /* --- NAVEGACIÓN --- */
         nav {
-            background: rgba(17, 17, 17, 0.8);
-            backdrop-filter: blur(10px);
-            margin: 20px;
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            border: 1px solid var(--morado-neon);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--glow);
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
+            background: rgba(17, 17, 17, 0.8); backdrop-filter: blur(10px);
+            margin: 20px; padding: 1.2rem 2.5rem; border-radius: 50px;
+            border: 1px solid var(--morado-neon); display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: var(--glow); position: sticky; top: 20px; z-index: 1000;
         }
-
-        .logo {
-            font-family: 'Syncopate', sans-serif; color: var(--morado-neon);
-            text-decoration: none; font-size: 1.2rem; letter-spacing: 3px; text-shadow: var(--glow);
-        }
-
+        .logo { font-family: 'Syncopate', sans-serif; color: var(--morado-neon); text-decoration: none; font-size: 1.2rem; letter-spacing: 3px; text-shadow: var(--glow); }
         .nav-links { list-style: none; display: flex; }
         .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
         .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
@@ -63,12 +46,6 @@
         h2 {
             font-family: 'Syncopate', sans-serif; font-size: 1.8rem; color: var(--morado-neon);
             text-align: center; margin: 3rem 0 1.5rem; letter-spacing: 4px; text-shadow: var(--glow);
-            animation: flicker 3s infinite alternate;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; text-shadow: 0 0 25px var(--morado-neon); }
         }
 
         /* --- FRASCO --- */
@@ -77,46 +54,41 @@
             padding: 40px; border-radius: 30px; border: 1px solid var(--morado-neon);
             margin-bottom: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
         .frasco-display {
             min-height: 120px; display: flex; align-items: center; justify-content: center;
             font-size: 1.2rem; font-weight: 700; color: var(--blanco-puro);
             margin: 20px 0; padding: 25px; border: 2px dashed var(--morado-neon);
             border-radius: 15px; transition: all 0.5s ease;
         }
-
         .btn-magico {
             background: var(--morado-neon); color: var(--negro-profundo); border: none;
             padding: 15px 35px; font-family: 'Syncopate', sans-serif; font-size: 0.8rem;
             border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: var(--glow);
         }
-
         .btn-magico:hover { transform: scale(1.1); background: var(--blanco-puro); box-shadow: 0 0 25px var(--morado-neon); }
 
-        /* --- CUPONES --- */
+        /* --- CUPONES / FOTOS --- */
         .cupones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
         .cupon {
             background: rgba(17, 17, 17, 0.6); backdrop-filter: blur(8px);
             border: 2px dashed var(--morado-neon); padding: 30px; border-radius: 15px;
-            position: relative; overflow: hidden; transition: 0.4s; cursor: pointer;
+            position: relative; transition: 0.4s;
         }
-        .cupon:hover { transform: translateY(-8px) rotate(1deg); box-shadow: var(--glow); border-style: solid; }
-        .cupon::before { content: "TICKET"; position: absolute; top: 12px; right: -25px; background: var(--morado-neon); color: var(--negro-profundo); font-size: 0.6rem; font-weight: 900; padding: 5px 35px; transform: rotate(45deg); }
-        .cupon h3 { font-family: 'Syncopate', sans-serif; font-size: 0.95rem; margin-bottom: 12px; color: var(--morado-neon); letter-spacing: 1px; }
+        .cupon h3 { font-family: 'Syncopate', sans-serif; font-size: 0.95rem; margin-bottom: 12px; color: var(--morado-neon); }
+        .cupon img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; border: 1px solid var(--morado-neon); margin-bottom: 15px; }
 
-        /* LLUVIA */
+        /* LLUVIA Y EFECTOS */
         .corazon { position: fixed; top: -50px; font-size: 1.5rem; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
         footer { text-align: center; padding: 4rem; opacity: 0.4; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="index.html" class="logo">KUROMI x LOVE</a>
+    <a href="home.html" class="logo">KUROMI x LOVE</a>
     <ul class="nav-links">
-        <li><a href="index.html">Inicio</a></li>
+        <li><a href="home.html">Inicio</a></li>
         <li><a href="biografia.html">Historia</a></li>
         <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
         <li><a href="cartas.html">Cartas</a></li>
@@ -131,57 +103,46 @@
         <button class="btn-magico" onclick="abrirEstrella()">ABRIR ESTRELLA ✨</button>
     </section>
 
-    <h2>🎫 Mis Cupones de Amor</h2>
-    <div class="cupones-grid">
-        <div class="cupon"><h3>VALE POR: UNA CENA</h3><p>Válido para tu comida favorita. ¡Yo invito! 🍕</p></div>
-        <div class="cupon"><h3>VALE POR: UN ABRAZO</h3><p>Válido 24/7. 🫂</p></div>
-        <div class="cupon"><h3>VALE POR: UN BESO</h3><p>Canjeable en cualquier momento. 💜</p></div>
+    <h2>🎁 Nuestros Regalos</h2>
+    <div class="cupones-grid" id="regalos-container">
     </div>
 </main>
 
 <footer><p>SISTEMA DE AMOR KUROMI v1.0 • 2026</p></footer>
 
 <script>
+    // Frasco de estrellas
     const mensajes = ["Eres lo mejor que me ha pasado. ✨", "Me encanta tu sonrisa. 💜", "Gracias por todo. 🖤"];
     function abrirEstrella() {
         const display = document.getElementById('mensaje-texto');
         const indice = Math.floor(Math.random() * mensajes.length);
-        display.style.opacity = 0;
-        setTimeout(() => {
-            display.innerText = mensajes[indice];
-            display.style.opacity = 1;
-            display.style.boxShadow = "var(--glow)";
-        }, 300);
+        display.innerText = mensajes[indice];
     }
 
-    // LLUVIA
-    function crearCorazon() {
-        const heart = document.createElement('div');
-        heart.classList.add('corazon');
-        const tipos = ['💜', '🖤', '💀', '✨'];
-        heart.innerText = tipos[Math.floor(Math.random() * tipos.length)];
-        heart.style.left = Math.random() * 100 + "vw";
-        const duration = Math.random() * 4 + 3;
-        heart.style.animationDuration = duration + "s";
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), duration * 1000);
-    }
-    setInterval(crearCorazon, 300);
+    // Sistema de Fotos de Regalos
+    const misRegalos = [
+        { foto: "img/regalo1.jpg", titulo: "Regalo 1", desc: "Descripción del regalo..." },
+        { foto: "img/regalo2.jpg", titulo: "Regalo 2", desc: "Descripción del regalo..." }
+    ];
 
-    // CURSOR
-    document.addEventListener('mousemove', function(e) {
-        const star = document.createElement('div');
-        star.innerHTML = '✨';
-        star.style.position = 'fixed';
-        star.style.left = e.clientX + 'px';
-        star.style.top = e.clientY + 'px';
-        star.style.color = '#bc61ff';
-        star.style.pointerEvents = 'none';
-        star.style.zIndex = '9999';
-        document.body.appendChild(star);
-        const anim = star.animate([{opacity: 1}, {opacity: 0}], {duration: 800});
-        anim.onfinish = () => star.remove();
+    const contenedor = document.getElementById('regalos-container');
+    misRegalos.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'cupon';
+        div.innerHTML = `
+            <img src="${r.foto}" alt="Regalo" loading="lazy">
+            <h3>${r.titulo}</h3>
+            <p>${r.desc}</p>
+        `;
+        contenedor.appendChild(div);
     });
+
+    // Lluvia
+    setInterval(() => {
+        const h = document.createElement('div'); h.className='corazon'; h.innerText=['💜','🖤','💀','✨'][Math.floor(Math.random()*4)];
+        h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*4+3)+'s';
+        document.body.appendChild(h); setTimeout(()=>h.remove(), 7000);
+    }, 300);
 </script>
 </body>
 </html>
