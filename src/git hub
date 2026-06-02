@@ -1,0 +1,11 @@
+cd "C:\Users\USER\OneDrive\Escritorio\tiempo"
+
+
+git init
+
+git remote add origin https://github.com/Esteban2023297/tiempo.git
+
+git add .
+git commit -m "Actualización del sistema Kuromi"
+git branch -M main
+git push -u origin main
