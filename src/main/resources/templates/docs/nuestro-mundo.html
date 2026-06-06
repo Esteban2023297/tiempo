@@ -58,9 +58,147 @@
         .info-item:hover { border-color: var(--morado-neon); box-shadow: var(--glow); }
         h2 { font-family: 'Syncopate', sans-serif; font-size: 2rem; text-align: center; margin-bottom: 40px; }
 
-        /* --- MUSIC PLAYER --- */
-        .music-card { background: #111; border: 2px solid var(--morado-neon); border-radius: 30px; padding: 20px; display: flex; align-items: center; gap: 20px; box-shadow: var(--glow); }
-        .album-art { width: 60px; height: 60px; background: #222; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+        /* --- MUSIC PLAYER ESTILO SPOTIFY --- */
+        .music-card {
+            background: #111;
+            border: 2px solid var(--morado-neon);
+            border-radius: 30px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: var(--glow);
+        }
+        .music-main-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+        .album-art { width: 60px; height: 60px; background: #222; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+
+        .music-controls-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            width: 100%;
+            border-top: 1px solid rgba(188, 97, 255, 0.2);
+            padding-top: 15px;
+        }
+        .playback-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .music-btn {
+            background: transparent;
+            border: none;
+            color: var(--blanco-puro);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s ease;
+            user-select: none;
+        }
+        .music-btn:hover {
+            color: var(--morado-neon);
+            text-shadow: var(--glow);
+            transform: scale(1.1);
+        }
+        #play-btn {
+            font-size: 1.8rem;
+            color: var(--morado-neon);
+        }
+        .active-loop {
+            color: var(--morado-neon) !important;
+            text-shadow: var(--glow);
+        }
+
+        /* Controles de Volumen */
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 80px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            outline: none;
+            transition: 0.2s;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--morado-neon);
+            box-shadow: var(--glow);
+            cursor: pointer;
+        }
+
+        /* --- NUEVO PANEL DE PLAYLIST (ESTILO SPOTIFY) --- */
+        .spotify-playlist {
+            margin-top: 10px;
+            border-top: 1px solid rgba(188, 97, 255, 0.2);
+            padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .playlist-track {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        .playlist-track:hover {
+            background: rgba(188, 97, 255, 0.1);
+            border-color: rgba(188, 97, 255, 0.3);
+        }
+        .playlist-track.active-track {
+            background: rgba(188, 97, 255, 0.15);
+            border-color: var(--morado-neon);
+            box-shadow: inset 0 0 10px rgba(188, 97, 255, 0.2);
+        }
+        .playlist-track.active-track .track-name {
+            color: var(--morado-neon);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(188, 97, 255, 0.5);
+        }
+        .track-left-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .track-number {
+            font-size: 0.8rem;
+            color: #666;
+            width: 20px;
+        }
+        .track-name {
+            font-size: 0.85rem;
+            color: var(--blanco-puro);
+            transition: 0.2s;
+        }
+        .track-icon {
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .playlist-track:hover .track-icon, .playlist-track.active-track .track-icon {
+            opacity: 1;
+        }
 
         /* --- POP-UPS --- */
         #secret-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
@@ -110,11 +248,62 @@
         <h3>Sincronía Total</h3>
         <p>Este es nuestro refugio digital. Cada detalle aquí es un pedacito de nosotros.</p>
     </div>
+
     <div class="music-card js-tilt">
-        <div class="album-art">💀</div>
-        <div style="flex: 1;"><p style="font-weight: bold; font-size: 0.8rem;">Nuestra Playlist Favorita</p></div>
-        <div id="play-btn" style="font-size: 1.5rem; color:var(--morado-neon); cursor:pointer;">▶</div>
-        <audio id="mi-musica" src="nuestra-cancion.mp3"></audio>
+        <div class="music-main-info">
+            <div class="album-art">💀</div>
+            <div style="flex: 1;">
+                <p id="track-title" style="font-weight: bold; font-size: 0.9rem; color: var(--morado-neon);">Musica 1</p>
+                <p id="track-time" style="font-size: 0.75rem; color: #888; margin-top: 3px;">0:00 / 0:00</p>
+            </div>
+        </div>
+
+        <div class="music-controls-container">
+            <div class="playback-buttons">
+                <button class="music-btn" id="rewind-btn" title="Canción anterior">⏪</button>
+                <button class="music-btn" id="play-btn" title="Reproducir / Pausar">▶</button>
+                <button class="music-btn" id="forward-btn" title="Siguiente canción">⏩</button>
+                <button class="music-btn" id="loop-btn" title="Repetir canción">🔁</button>
+            </div>
+
+            <div class="volume-container">
+                <span style="font-size: 0.9rem;">🔊</span>
+                <input type="range" class="volume-slider" id="volume-range" min="0" max="1" step="0.01" value="1">
+            </div>
+        </div>
+
+        <div class="spotify-playlist">
+            <div class="playlist-track active-track" onclick="selectTrack(0)">
+                <div class="track-left-info">
+                    <span class="track-number">1</span>
+                    <span class="track-name">Musica 1</span>
+                </div>
+                <span class="track-icon">🎵</span>
+            </div>
+            <div class="playlist-track" onclick="selectTrack(1)">
+                <div class="track-left-info">
+                    <span class="track-number">2</span>
+                    <span class="track-name">Musica 2</span>
+                </div>
+                <span class="track-icon">🎵</span>
+            </div>
+            <div class="playlist-track" onclick="selectTrack(2)">
+                <div class="track-left-info">
+                    <span class="track-number">3</span>
+                    <span class="track-name">Musica 3</span>
+                </div>
+                <span class="track-icon">🎵</span>
+            </div>
+            <div class="playlist-track" onclick="selectTrack(3)">
+                <div class="track-left-info">
+                    <span class="track-number">4</span>
+                    <span class="track-name">Musica 4</span>
+                </div>
+                <span class="track-icon">🎵</span>
+            </div>
+        </div>
+
+        <audio id="mi-musica" src="/musica/Musica 1.mpeg" autoplay></audio>
     </div>
 </div>
 
@@ -150,11 +339,130 @@
     logo.addEventListener('mousedown', () => timer = setTimeout(() => toggleModal(true), 1500));
     logo.addEventListener('mouseup', () => clearTimeout(timer));
 
+    // --- LÓGICA DE REPRODUCTOR CON PLAYLIST COMPLETA ---
     const audio = document.getElementById('mi-musica');
-    document.getElementById('play-btn').addEventListener('click', () => {
-        if(audio.paused) { audio.play(); document.getElementById('play-btn').innerText = '⏸'; }
-        else { audio.pause(); document.getElementById('play-btn').innerText = '▶'; }
+    const playBtn = document.getElementById('play-btn');
+    const rewindBtn = document.getElementById('rewind-btn');
+    const forwardBtn = document.getElementById('forward-btn');
+    const loopBtn = document.getElementById('loop-btn');
+    const volumeRange = document.getElementById('volume-range');
+    const trackTime = document.getElementById('track-time');
+    const trackTitle = document.getElementById('track-title');
+    const playlistTracks = document.querySelectorAll('.playlist-track');
+
+    const playlist = [
+        { title: "Musica 1", src: "/musica/Musica 1.mpeg" },
+        { title: "Musica 2", src: "/musica/Musica 2.mpeg" },
+        { title: "Musica 3", src: "/musica/Musica 3.mpeg" },
+        { title: "Musica 4", src: "/musica/Musica 4.mpeg" }
+    ];
+
+    let currentTrackIndex = 0;
+
+    // Función para cambiar visualmente la canción activa en la lista
+    function updatePlaylistUI(index) {
+        playlistTracks.forEach((track, i) => {
+            if (i === index) {
+                track.classList.add('active-track');
+            } else {
+                track.classList.remove('active-track');
+            }
+        });
+    }
+
+    // Función para cargar y reproducir una pista
+    function loadTrack(index) {
+        if (index >= 0 && index < playlist.length) {
+            currentTrackIndex = index;
+            audio.src = playlist[currentTrackIndex].src;
+            trackTitle.innerText = playlist[currentTrackIndex].title;
+
+            updatePlaylistUI(currentTrackIndex);
+
+            audio.play().then(() => {
+                playBtn.innerText = '⏸';
+            }).catch(error => {
+                console.log("Autoplay bloqueado temporalmente.");
+            });
+        }
+    }
+
+    // Función que se activa al hacer clic directamente en la lista de canciones
+    function selectTrack(index) {
+        loadTrack(index);
+    }
+
+    function formatTime(secs) {
+        if (isNaN(secs)) return "0:00";
+        const m = Math.floor(secs / 60);
+        const s = Math.floor(secs % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+        trackTime.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
     });
+
+    audio.addEventListener('loadedmetadata', () => {
+        trackTime.innerText = `0:00 / ${formatTime(audio.duration)}`;
+    });
+
+    audio.addEventListener('ended', () => {
+        if (audio.loop) {
+            audio.play();
+        } else {
+            let nextIndex = (currentTrackIndex + 1) % playlist.length;
+            loadTrack(nextIndex);
+        }
+    });
+
+    playBtn.addEventListener('click', () => {
+        if(audio.paused) {
+            audio.play();
+            playBtn.innerText = '⏸';
+        } else {
+            audio.pause();
+            playBtn.innerText = '▶';
+        }
+    });
+
+    rewindBtn.addEventListener('click', () => {
+        if (audio.currentTime > 3) {
+            audio.currentTime = 0;
+        } else {
+            let prevIndex = currentTrackIndex - 1;
+            if (prevIndex < 0) prevIndex = playlist.length - 1;
+            loadTrack(prevIndex);
+        }
+    });
+
+    forwardBtn.addEventListener('click', () => {
+        let nextIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(nextIndex);
+    });
+
+    loopBtn.addEventListener('click', () => {
+        audio.loop = !audio.loop;
+        if(audio.loop) {
+            loopBtn.classList.add('active-loop');
+        } else {
+            loopBtn.classList.remove('active-loop');
+        }
+    });
+
+    volumeRange.addEventListener('input', (e) => {
+        audio.volume = e.target.value;
+    });
+
+    document.addEventListener('click', () => {
+        if (audio.paused && audio.currentTime === 0) {
+            audio.play().then(() => {
+                playBtn.innerText = '⏸';
+            }).catch(error => {
+                console.log("El navegador restringió el autoplay.");
+            });
+        }
+    }, { once: true });
 
     document.addEventListener('contextmenu', e => { e.preventDefault(); const m = document.getElementById('custom-menu'); m.style.display='block'; m.style.left=e.clientX+'px'; m.style.top=e.clientY+'px'; });
     document.addEventListener('click', () => document.getElementById('custom-menu').style.display='none');
