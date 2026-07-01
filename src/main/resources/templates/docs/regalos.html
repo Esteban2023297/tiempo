@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regalos Especiales - Kuromi Love</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
 
         :root {
             --morado-neon: #bc61ff;
@@ -37,7 +38,7 @@
         }
         .logo { font-family: 'Syncopate', sans-serif; color: var(--morado-neon); text-decoration: none; font-size: 1.2rem; letter-spacing: 3px; text-shadow: var(--glow); }
         .nav-links { list-style: none; display: flex; }
-        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
         .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
 
         main { padding: 20px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 10; }
@@ -66,15 +67,16 @@
         }
         .btn-magico:hover { transform: scale(1.1); background: var(--blanco-puro); box-shadow: 0 0 25px var(--morado-neon); }
 
-        /* --- CUPONES / FOTOS --- */
+        /* --- FOTOS DE LOS REGALOS --- */
         .cupones-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
         .cupon {
             background: rgba(17, 17, 17, 0.6); backdrop-filter: blur(8px);
             border: 2px dashed var(--morado-neon); padding: 30px; border-radius: 15px;
-            position: relative; transition: 0.4s;
+            position: relative; transition: 0.4s; text-align: center;
         }
-        .cupon h3 { font-family: 'Syncopate', sans-serif; font-size: 0.95rem; margin-bottom: 12px; color: var(--morado-neon); }
-        .cupon img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; border: 1px solid var(--morado-neon); margin-bottom: 15px; }
+        .cupon h3 { font-family: 'Syncopate', sans-serif; font-size: 0.95rem; margin-bottom: 12px; color: var(--morado-neon); letter-spacing: 1px; }
+        .cupon img { width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 1px solid var(--morado-neon); margin-bottom: 15px; }
+        .cupon p { font-size: 0.95rem; line-height: 1.5; color: #e2e8f0; }
 
         /* LLUVIA Y EFECTOS */
         .corazon { position: fixed; top: -50px; font-size: 1.5rem; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
@@ -86,13 +88,15 @@
 
 <nav>
     <a href="home.html" class="logo">KUROMI x LOVE</a>
-    <ul class="nav-links">
-        <li><a href="home.html">Inicio</a></li>
-        <li><a href="biografia.html">Historia</a></li>
-        <li><a href="nuestro-mundo.html">Nuestro Mundo</a></li>
-        <li><a href="cartas.html">Cartas</a></li>
-        <li><a href="regalos.html">Regalos</a></li>
-    </ul>
+    <div class="nav-links">
+        <a href="home.html">Inicio</a>
+        <a href="biografia.html">Biografía</a>
+        <a href="album.html">Álbum</a>
+        <a href="cartas.html">Cartas</a>
+        <a href="nuestro-mundo.html">Nuestro Mundo</a>
+        <a href="regalos.html" style="color: var(--morado-neon); text-shadow: var(--glow);">Regalos</a>
+        <a href="feliz-cumple.html">Feliz Cumple</a>
+    </div>
 </nav>
 
 <main>
@@ -102,15 +106,28 @@
         <button class="btn-magico" onclick="abrirEstrella()">ABRIR ESTRELLA ✨</button>
     </section>
 
-    <h2>🎁 Nuestros Regalos</h2>
-    <div class="cupones-grid" id="regalos-container">
+    <h2>🎁 Regalos que me has dado</h2>
+    <div class="cupones-grid">
+
+        <div class="cupon">
+            <img src="./static/img/jpg1.png" alt="Regalo Especial" loading="lazy">
+            <h3>REGALO 1</h3>
+            <p>Aquí puedes escribir la descripción de este regalo o lo bonito que te pareció recibirlo de su parte.</p>
+        </div>
+
+        <div class="cupon">
+            <img src="./static/img/jpg1.png" alt="Regalo Especial" loading="lazy">
+            <h3>REGALO 2</h3>
+            <p>Agrega otro detalle lindo aquí. Solo cambia la ruta del 'src' en la imagen para poner tus fotos.</p>
+        </div>
+
     </div>
 </main>
 
 <footer><p>SISTEMA DE AMOR KUROMI v1.0 • 2026</p></footer>
 
 <script>
-    // Frasco de estrellas
+    // Frasco de estrellas original
     const mensajes = ["Eres lo mejor que me ha pasado. ✨", "Me encanta tu sonrisa. 💜", "Gracias por todo. 🖤"];
     function abrirEstrella() {
         const display = document.getElementById('mensaje-texto');
@@ -118,25 +135,7 @@
         display.innerText = mensajes[indice];
     }
 
-    // Sistema de Fotos de Regalos
-    const misRegalos = [
-        { foto: "img/regalo1.jpg", titulo: "Regalo 1", desc: "Descripción del regalo..." },
-        { foto: "img/regalo2.jpg", titulo: "Regalo 2", desc: "Descripción del regalo..." }
-    ];
-
-    const contenedor = document.getElementById('regalos-container');
-    misRegalos.forEach(r => {
-        const div = document.createElement('div');
-        div.className = 'cupon';
-        div.innerHTML = `
-            <img src="${r.foto}" alt="Regalo" loading="lazy">
-            <h3>${r.titulo}</h3>
-            <p>${r.desc}</p>
-        `;
-        contenedor.appendChild(div);
-    });
-
-    // Lluvia
+    // Lluvia constante
     setInterval(() => {
         const h = document.createElement('div'); h.className='corazon'; h.innerText=['💜','🖤','💀','✨'][Math.floor(Math.random()*4)];
         h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*4+3)+'s';

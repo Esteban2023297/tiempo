@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños! - Kuromi Glow</title>
+    <title>¡Feliz Cumpleaños 19! - Kuromi Glow</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
 
@@ -12,7 +12,7 @@
             --lila-vivido: #8b5cf6;
             --negro-profundo: #050505;
             --blanco-puro: #ffffff;
-            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
+            --glow: 0 0 20px rgba(188, 97, 255, 0.7);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,37 +44,39 @@
         .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
 
         /* --- CONTENEDOR PRINCIPAL --- */
-        .container { max-width: 600px; width: 100%; margin: 20px auto; padding: 0 20px; text-align: center; z-index: 10; }
+        .container { max-width: 700px; width: 100%; margin: 20px auto; padding: 0 20px; text-align: center; z-index: 10; }
 
-        h1 { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: var(--morado-neon); text-shadow: var(--glow); margin-bottom: 20px; }
+        .welcome-title { font-family: 'Syncopate', sans-serif; font-size: 2rem; color: #fff; margin-bottom: 5px; letter-spacing: 2px; }
+        .age-badge { font-family: 'Syncopate', sans-serif; font-size: 4rem; color: var(--morado-neon); text-shadow: var(--glow); display: block; margin-bottom: 10px; }
 
-        /* --- PASTEL INTERACTIVO --- */
-        .cake-container { margin: 40px auto; position: relative; width: 200px; height: 200px; cursor: pointer; }
-        .cake { position: absolute; bottom: 0; width: 200px; height: 100px; background: #221435; border-radius: 20px 20px 4px 4px; border: 2px solid var(--morado-neon); box-shadow: var(--glow); }
-        .frosting { position: absolute; top: 0; width: 100%; height: 30px; background: var(--morado-neon); border-radius: 20px 20px 0 0; }
-        .candle { position: absolute; top: -50px; left: 90px; width: 16px; height: 50px; background: #fff; border-radius: 4px; border: 2px solid #8b5cf6; }
-        .flame { position: absolute; top: -25px; left: -2px; width: 16px; height: 25px; background: #ffaa00; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 20px #ffaa00, 0 0 10px #ff5500; animation: flicker 0.1s ease-in-out infinite alternate; }
+        /* --- PASTEL INTERACTIVO MEJORADO --- */
+        .cake-container { margin: 30px auto; position: relative; width: 220px; height: 220px; cursor: pointer; }
+        .cake { position: absolute; bottom: 0; width: 220px; height: 110px; background: #180b2b; border-radius: 24px 24px 6px 6px; border: 2px solid var(--morado-neon); box-shadow: var(--glow); }
+        .frosting { position: absolute; top: 0; width: 100%; height: 35px; background: var(--morado-neon); border-radius: 22px 22px 0 0; box-shadow: inset 0 -5px 10px rgba(0,0,0,0.3); }
+        .candle { position: absolute; top: -55px; left: 102px; width: 16px; height: 55px; background: linear-gradient(to right, #fff, #e2e8f0); border-radius: 4px; border: 2px solid #8b5cf6; }
+        .flame { position: absolute; top: -28px; left: -2px; width: 16px; height: 28px; background: #ffaa00; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 25px #ffaa00, 0 0 12px #ff5500; animation: flicker 0.1s ease-in-out infinite alternate; }
 
         @keyframes flicker {
             0% { transform: scale(1); }
-            100% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1.15) rotate(3deg); }
         }
 
-        /* --- TARJETA DE REGALO / MENSAJE --- */
+        /* --- TARJETA DE MENSAJE ESTILO PREMIUM --- */
         .card-birthday {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px);
-            border: 1px solid rgba(188, 97, 255, 0.2); padding: 35px;
-            border-radius: 24px; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: 0.4s ease; transform-style: preserve-3d;
+            background: rgba(20, 11, 36, 0.4); backdrop-filter: blur(15px);
+            border: 2px solid rgba(188, 97, 255, 0.2); padding: 40px;
+            border-radius: 30px; margin-top: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d;
         }
         .card-birthday:hover { border-color: var(--morado-neon); box-shadow: var(--glow); }
-        .card-birthday p { font-size: 1.1rem; line-height: 1.8; color: #e2e8f0; margin-bottom: 15px; }
+        .card-birthday p { font-size: 1.15rem; line-height: 1.9; color: #f1f5f9; font-weight: 400; }
+        .signature { color: var(--morado-neon); font-weight: bold; font-family: 'Syncopate'; font-size: 0.9rem; margin-top: 35px; letter-spacing: 3px; display: block; }
 
-        /* --- CONFETI LLUVIA --- */
+        /* --- LLUVIA CONFETI --- */
         .confeti { position: fixed; top: -50px; z-index: 1; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* --- AVISO FLOTANTE --- */
-        .instruction { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; animation: pulse 1.5s infinite; }
+        .instruction { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 3px; margin-top: 15px; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
     </style>
 </head>
@@ -90,7 +92,8 @@
 </nav>
 
 <div class="container">
-    <h1 class="js-tilt">¡FELIZ CUMPLEAÑOS! 🎉</h1>
+    <h1 class="welcome-title js-tilt">FELIZ CUMPLE</h1>
+    <span class="age-badge js-tilt">19 AÑOS</span>
 
     <div class="cake-container" onclick="blowCandle()">
         <div class="candle">
@@ -103,13 +106,13 @@
     <p class="instruction" id="cake-instruction">Haz clic en la vela para pedir un deseo y apagarla ✨</p>
 
     <div class="card-birthday js-tilt">
-        <p>"Hoy es un día especial porque se celebra tu existencia. Eres esa persona que llena de luz y código bonito mis días."</p>
-        <p style="color: var(--morado-neon); font-weight: bold; font-family: 'Syncopate'; font-size: 0.9rem; margin-top: 25px;">✨ CON AMOR, SIEMPRE ✨</p>
+        <p>"¡Felices 19! Hoy celebramos tu día de la forma más linda y especial posible. Eres una persona increíble que llena de luz, sonrisas y momentos mágicos cada línea de este código y de mi vida entera. Que este nuevo año venga lleno de cosas hermosas para ti."</p>
+        <span class="signature">✨ CON AMOR, SIEMPRE ✨</span>
     </div>
 </div>
 
 <script>
-    // Efecto de inclinación 3D en las tarjetas
+    // Inclinación 3D en las tarjetas al pasar el ratón
     document.querySelectorAll('.js-tilt').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -120,47 +123,49 @@
         card.addEventListener('mouseleave', () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`);
     });
 
-    // Lluvia constante de cumpleaños (Corazones, Calaveras y Estrellas)
+    // Lluvia constante de partículas de celebración
     setInterval(() => {
         const c = document.createElement('div');
         c.className = 'confeti';
-        c.innerText = ['💜', '💀', '✨', '🎈', '🎉'][Math.floor(Math.random() * 5)];
+        c.innerText = ['💜', '💀', '✨', '🎈', '🎂', '🎉'][Math.floor(Math.random() * 6)];
         c.style.left = Math.random() * 100 + 'vw';
-        c.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        c.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        c.style.opacity = Math.random();
+        c.style.fontSize = (Math.random() * 22 + 16) + 'px';
+        c.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
+        c.style.opacity = Math.random() * 0.8 + 0.2;
         document.body.appendChild(c);
-        setTimeout(() => c.remove(), 5000);
-    }, 300);
+        setTimeout(() => c.remove(), 5500);
+    }, 250);
 
-    // Función interactiva para apagar la vela
+    // Lógica interactiva para la vela
     let candleLit = true;
     function blowCandle() {
         if(candleLit) {
             document.getElementById('candle-flame').style.display = 'none';
-            document.getElementById('cake-instruction').innerText = '¡Deseo guardado correctamente! 💜🎉';
+            document.getElementById('cake-instruction').innerText = '¡Que todos tus deseos de tus 19 años se cumplan! 💜🎉';
             document.getElementById('cake-instruction').style.color = '#bc61ff';
+            document.getElementById('cake-instruction').style.fontWeight = 'bold';
 
-            // Lanzar explosión masiva de confeti al apagarla
-            for(let i=0; i<30; i++) {
+            // Explosión de confeti masiva
+            for(let i=0; i<35; i++) {
                 setTimeout(() => {
                     const burst = document.createElement('div');
                     burst.className = 'confeti';
-                    burst.innerText = ['✨', '🎉', '💜'][Math.floor(Math.random() * 3)];
-                    burst.style.left = (Math.random() * 40 + 30) + 'vw';
-                    burst.style.top = '40vh';
-                    burst.style.fontSize = '25px';
-                    burst.style.animationDuration = '1.5s';
+                    burst.innerText = ['✨', '🎉', '💜', '🎈'][Math.floor(Math.random() * 4)];
+                    burst.style.left = (Math.random() * 50 + 25) + 'vw';
+                    burst.style.top = '45vh';
+                    burst.style.fontSize = '26px';
+                    burst.style.animationDuration = '1.8s';
                     document.body.appendChild(burst);
-                    setTimeout(() => burst.remove(), 1500);
-                }, i * 50);
+                    setTimeout(() => burst.remove(), 1800);
+                }, i * 40);
             }
             candleLit = false;
         } else {
-            // Volver a encender si hacen clic otra vez
+            // Volver a encender al hacer clic de nuevo
             document.getElementById('candle-flame').style.display = 'block';
             document.getElementById('cake-instruction').innerText = 'Haz clic en la vela para pedir un deseo y apagarla ✨';
-            document.getElementById('cake-instruction').style.color = '#888';
+            document.getElementById('cake-instruction').style.color = '#aaa';
+            document.getElementById('cake-instruction').style.fontWeight = 'normal';
             candleLit = true;
         }
     }
