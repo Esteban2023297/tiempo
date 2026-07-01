@@ -44,7 +44,8 @@
         #hint-text { font-size: 0.5rem; color: #bc61ff; letter-spacing: 2px; margin-top: 5px; opacity: 0; transition: opacity 0.5s; pointer-events: none; }
         .logo-container:hover #hint-text { opacity: 0.6; }
 
-        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
         .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
 
         /* --- CONTENEDOR 3D --- */
@@ -218,15 +219,16 @@
         <a href="#" id="trigger-secret" class="logo">KUROMI x LOVE</a>
         <span id="hint-text">MANTÉN PRESIONADO PARA ACCESO</span>
     </div>
-            <a href="home.html" style="color: var(--morado-neon); text-shadow: var(--glow); margin-right: 15px;">Inicio</a>
-            <a href="biografia.html" style="margin-right: 15px;">Biografía</a>
-            <a href="album.html" style="margin-right: 15px;">Álbum</a>
-            <a href="cartas.html" style="margin-right: 15px;">Cartas</a>
-            <a href="nuestro-mundo.html" style="margin-right: 15px;">Nuestro Mundo</a>
-            <a href="regalos.html" style="margin-right: 15px;">Regalos</a>
-            <a href="feliz-cumple.html">Feliz Cumple</a>
-
-    </nav>
+    <div class="nav-links">
+        <a href="home.html">Inicio</a>
+        <a href="biografia.html">Biografía</a>
+        <a href="album.html">Álbum</a>
+        <a href="cartas.html">Cartas</a>
+        <a href="nuestro-mundo.html" style="color: var(--morado-neon); text-shadow: var(--glow);">Nuestro Mundo</a>
+        <a href="regalos.html">Regalos</a>
+        <a href="feliz-cumple.html">Feliz Cumple</a>
+    </div>
+</nav>
 
 <div id="secret-modal">
     <div class="modal-content">
