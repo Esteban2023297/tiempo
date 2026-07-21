@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuro - Kuromi Glow</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+
+        :root {
+            --morado-neon: #bc61ff;
+            --lila-vivido: #8b5cf6;
+            --negro-profundo: #050505;
+            --blanco-puro: #ffffff;
+            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
+            --glow-intenso: 0 0 30px rgba(188, 97, 255, 0.9);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--negro-profundo);
+            background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
+            background-size: 40px 40px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--blanco-puro);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVEGACIÓN --- */
+        nav {
+            background: rgba(17, 17, 17, 0.8); backdrop-filter: blur(10px);
+            margin: 20px; padding: 1.2rem 2.5rem; border-radius: 50px;
+            border: 1px solid var(--morado-neon); display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: var(--glow); position: sticky; top: 20px; z-index: 1000;
+        }
+        .logo { font-family: 'Syncopate', sans-serif; color: var(--morado-neon); text-decoration: none; font-size: 1.2rem; letter-spacing: 3px; text-shadow: var(--glow); }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            color: var(--morado-neon);
+            text-shadow: var(--glow);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        /* --- SOBRE EN 3D --- */
+        .envelope-container {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: #111;
+            border: 2px solid var(--morado-neon);
+            border-radius: 12px;
+            box-shadow: var(--glow);
+            cursor: pointer;
+            perspective: 800px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .envelope-container:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: var(--glow-intenso);
+        }
+
+        /* Solapa Superior */
+        .flap-top {
+            position: absolute;
+            top: 0; left: 0;
+            width: 0; height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 115px solid #1a1a1a;
+            z-index: 4;
+            transform-origin: top;
+            transition: transform 0.5s ease-in-out;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+        }
+
+        .flap-left {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 0;
+            border-bottom: 220px solid #141414;
+            border-right: 190px solid transparent;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .flap-right {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 0; height: 0;
+            border-bottom: 220px solid #141414;
+            border-left: 190px solid transparent;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* SELLO EN FORMA DE CORAZÓN */
+        .envelope-seal-heart {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 55px;
+            height: 50px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulseGlow 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        /* Forma de corazón creada en CSS */
+        .envelope-seal-heart::before,
+        .envelope-seal-heart::after {
+            content: "";
+            position: absolute;
+            left: 27px;
+            top: 0;
+            width: 27px;
+            height: 44px;
+            background: var(--morado-neon);
+            border-radius: 20px 20px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+            box-shadow: var(--glow);
+        }
+
+        .envelope-seal-heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .seal-initials {
+            position: relative;
+            z-index: 6;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.9);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 8px rgba(188, 97, 255, 0.8)); }
+            50% { transform: translateX(-50%) scale(1.1); filter: drop-shadow(0 0 18px rgba(188, 97, 255, 1)); }
+        }
+
+        .envelope-hint {
+            position: absolute;
+            bottom: 12px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.65rem;
+            font-family: 'Syncopate', sans-serif;
+            color: var(--blanco-puro);
+            letter-spacing: 2px;
+            z-index: 5;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* --- MODAL Y CARTA --- */
+        .modal-carta {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(5, 5, 5, 0.92);
+            backdrop-filter: blur(12px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .carta-papel {
+            background: #161616;
+            border: 2px solid var(--morado-neon);
+            box-shadow: 0 0 40px rgba(188, 97, 255, 0.4);
+            padding: 50px 35px;
+            border-radius: 8px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            animation: unfoldLetter 0.5s ease-out forwards;
+        }
+
+        .carta-papel::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px dashed rgba(188, 97, 255, 0.35);
+            pointer-events: none;
+        }
+
+        @keyframes unfoldLetter {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .carta-papel h3 {
+            font-family: 'Syncopate', sans-serif;
+            color: var(--morado-neon);
+            font-size: 1rem;
+            margin-bottom: 25px;
+            letter-spacing: 3px;
+            text-shadow: var(--glow);
+        }
+
+        .texto-escribiendo {
+            font-size: 1.35rem;
+            line-height: 1.6;
+            font-weight: 700;
+            color: #ffffff;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cerrar-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: 0.2s;
+        }
+        .cerrar-modal:hover { color: var(--morado-neon); transform: rotate(90deg); }
+
+        .corazon { position: fixed; top: -50px; font-size: 1.5rem; pointer-events: none; z-index: 1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        footer { text-align: center; padding: 2rem; opacity: 0.4; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">KUROMI x LOVE</a>
+    <div class="nav-links">
+        <a href="/" style="color: var(--morado-neon); text-shadow: var(--glow); margin-right: 15px;">Inicio</a>
+        <a href="/biografia" style="margin-right: 15px;">Biografía</a>
+        <a href="/album" style="margin-right: 15px;">Álbum</a>
+        <a href="/cartas" style="margin-right: 15px;">Cartas</a>
+        <a href="/nuestro-mundo" style="margin-right: 15px;">Nuestro Mundo</a>
+        <a href="/regalos" style="margin-right: 15px;">Regalos</a>
+        <a href="/feliz-cumple">Feliz Cumple</a>
+    </div>
+</nav>
+
+<main>
+    <h2>NUESTRO FUTURO 🔮</h2>
+
+    <div class="envelope-container" id="sobre">
+        <div class="flap-top" id="solapa"></div>
+        <div class="flap-left"></div>
+        <div class="flap-right"></div>
+
+        <div class="envelope-seal-heart">
+            <span class="seal-initials">E + M</span>
+        </div>
+
+        <div class="envelope-hint">TOCA PARA ABRIR ✨</div>
+    </div>
+</main>
+
+<div class="modal-carta" id="modalCarta">
+    <div class="carta-papel">
+        <button class="cerrar-modal" id="btnCerrar">✕</button>
+        <h3>✉️ PARA TI</h3>
+        <div class="texto-escribiendo" id="textoCarta"></div>
+    </div>
+</div>
+
+<footer><p>SISTEMA DE AMOR KUROMI v1.0 • 2026</p></footer>
+
+<script>
+    const textoMensaje = "¿Te gustaría hacer un futuro conmigo?";
+    let indexTexto = 0;
+    let timerEfecto;
+
+    const sobre = document.getElementById('sobre');
+    const modalCarta = document.getElementById('modalCarta');
+    const btnCerrar = document.getElementById('btnCerrar');
+    const solapa = document.getElementById('solapa');
+    const contenedorTexto = document.getElementById('textoCarta');
+
+    // Evento seguro para abrir la carta
+    sobre.addEventListener('click', function() {
+        solapa.style.transform = 'rotateX(180deg)';
+        setTimeout(() => {
+            modalCarta.style.display = 'flex';
+            iniciarEfectoEscribir();
+        }, 300);
+    });
+
+    // Evento para cerrar la carta
+    btnCerrar.addEventListener('click', function() {
+        modalCarta.style.display = 'none';
+        solapa.style.transform = 'rotateX(0deg)';
+        clearInterval(timerEfecto);
+        contenedorTexto.innerHTML = '';
+        indexTexto = 0;
+    });
+
+    function iniciarEfectoEscribir() {
+        contenedorTexto.innerHTML = '';
+        indexTexto = 0;
+
+        timerEfecto = setInterval(() => {
+            if (indexTexto < textoMensaje.length) {
+                contenedorTexto.innerHTML += textoMensaje.charAt(indexTexto);
+                indexTexto++;
+            } else {
+                clearInterval(timerEfecto);
+            }
+        }, 50);
+    }
+
+    // Lluvia de destellos y corazones
+    setInterval(() => {
+        const h = document.createElement('div'); h.className='corazon'; h.innerText=['💜','✨','💀','🖤'][Math.floor(Math.random()*4)];
+        h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*4+3)+'s';
+        document.body.appendChild(h); setTimeout(()=>h.remove(), 7000);
+    }, 400);
+</script>
+
+</body>
+</html>

@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestro Mundo - Kuromi Glow</title>
+    <title>Nuestro Mundo - Kuromi Orbit</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
 
         :root {
             --morado-neon: #bc61ff;
             --lila-vivido: #8b5cf6;
             --negro-profundo: #050505;
+            --negro-tarjeta: rgba(18, 9, 31, 0.85);
             --blanco-puro: #ffffff;
-            --glow: 0 0 15px rgba(188, 97, 255, 0.6);
+            --glow: 0 0 20px rgba(188, 97, 255, 0.6);
+            --glow-intenso: 0 0 35px rgba(188, 97, 255, 0.9);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,455 +22,430 @@
         body {
             background-color: var(--negro-profundo);
             background-image: radial-gradient(var(--lila-vivido) 0.8px, transparent 0.8px);
-            background-size: 40px 40px;
+            background-size: 35px 35px;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--blanco-puro);
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        /* --- EFECTOS VISUALES --- */
-        .corazon { position: fixed; top: -50px; z-index: 1; pointer-events: none; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
         /* --- NAVEGACIÓN --- */
         nav {
-            background: rgba(17, 17, 17, 0.8); backdrop-filter: blur(10px);
-            margin: 20px; padding: 1.2rem 2.5rem; border-radius: 50px;
+            background: rgba(17, 17, 17, 0.85); backdrop-filter: blur(12px);
+            margin: 20px; padding: 1rem 2rem; border-radius: 50px;
             border: 1px solid var(--morado-neon); display: flex;
             justify-content: space-between; align-items: center;
             box-shadow: var(--glow); position: sticky; top: 20px; z-index: 1000;
+            width: calc(100% - 40px); max-width: 900px;
         }
-        .logo-container { display: flex; flex-direction: column; align-items: flex-start; }
-        .logo { font-family: 'Syncopate', sans-serif; color: var(--morado-neon); text-decoration: none; font-size: 1.2rem; letter-spacing: 3px; cursor: help; }
-        #hint-text { font-size: 0.5rem; color: #bc61ff; letter-spacing: 2px; margin-top: 5px; opacity: 0; transition: opacity 0.5s; pointer-events: none; }
-        .logo-container:hover #hint-text { opacity: 0.6; }
-
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .logo { font-family: 'Syncopate', sans-serif; color: var(--morado-neon); text-decoration: none; font-size: 1.1rem; letter-spacing: 3px; text-shadow: var(--glow); }
+        .nav-links { display: flex; align-items: center; gap: 15px; }
+        .nav-links a { text-decoration: none; color: var(--blanco-puro); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; transition: 0.3s; }
         .nav-links a:hover { color: var(--morado-neon); text-shadow: var(--glow); }
 
-        /* --- CONTENEDOR 3D --- */
-        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 10; }
-        .info-item {
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px);
-            border: 1px solid rgba(188, 97, 255, 0.2); padding: 30px;
-            border-radius: 24px; margin-bottom: 30px; transition: 0.4s ease;
-            transform-style: preserve-3d;
-        }
-        .info-item:hover { border-color: var(--morado-neon); box-shadow: var(--glow); }
-        h2 { font-family: 'Syncopate', sans-serif; font-size: 2rem; text-align: center; margin-bottom: 40px; }
-
-        /* --- MUSIC PLAYER ESTILO SPOTIFY --- */
-        .music-card {
-            background: #111;
-            border: 2px solid var(--morado-neon);
-            border-radius: 30px;
-            padding: 25px;
+        /* --- CONTENEDOR PRINCIPAL --- */
+        main {
+            width: 100%;
+            max-width: 720px;
+            padding: 10px 20px 50px;
             display: flex;
             flex-direction: column;
+            gap: 30px;
+            z-index: 10;
+        }
+
+        h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            color: var(--blanco-puro);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        /* --- SECCIÓN 1: REPRODUCTOR TIPO ÓRBITA & EQ --- */
+        .orbit-player-container {
+            background: var(--negro-tarjeta);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--morado-neon);
+            border-radius: 30px;
+            padding: 30px 20px;
+            box-shadow: var(--glow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ECUALIZADOR DE BARRAS */
+        .eq-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        .eq-bar {
+            width: 8px;
+            height: 10px;
+            background: var(--morado-neon);
+            border-radius: 4px;
+            box-shadow: var(--glow);
+            transition: height 0.15s ease;
+        }
+        .playing .eq-bar {
+            animation: equalize 0.8s infinite alternate ease-in-out;
+        }
+        .playing .eq-bar:nth-child(1) { animation-delay: 0.1s; }
+        .playing .eq-bar:nth-child(2) { animation-delay: 0.3s; }
+        .playing .eq-bar:nth-child(3) { animation-delay: 0.5s; }
+        .playing .eq-bar:nth-child(4) { animation-delay: 0.2s; }
+        .playing .eq-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes equalize {
+            0% { height: 8px; }
+            100% { height: 38px; }
+        }
+
+        /* DISCOS EN ÓRBITA */
+        .orbit-wheels {
+            display: flex;
+            justify-content: center;
             gap: 15px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .song-disc {
+            width: 90px;
+            height: 90px;
+            background: #150a24;
+            border: 2px solid rgba(188, 97, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .song-disc:hover {
+            border-color: var(--morado-neon);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: var(--glow);
         }
-        .music-main-info {
+
+        .song-disc.active {
+            border-color: var(--morado-neon);
+            box-shadow: var(--glow-intenso);
+            background: rgba(188, 97, 255, 0.2);
+            animation: rotateDisc 10s linear infinite;
+        }
+
+        @keyframes rotateDisc {
+            100% { transform: rotate(360deg); }
+        }
+
+        .disc-icon { font-size: 1.5rem; }
+        .disc-title { font-size: 0.65rem; font-weight: 700; margin-top: 4px; text-align: center; }
+
+        /* CONTROLES DEL REPRODUCTOR */
+        .main-controls {
             display: flex;
             align-items: center;
             gap: 20px;
-            width: 100%;
+            margin-top: 10px;
         }
-        .album-art { width: 60px; height: 60px; background: #222; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
 
-        .music-controls-container {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            width: 100%;
-            border-top: 1px solid rgba(188, 97, 255, 0.2);
-            padding-top: 15px;
-        }
-        .playback-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .music-btn {
-            background: transparent;
-            border: none;
+        .btn-action {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--morado-neon);
             color: var(--blanco-puro);
-            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: 0.2s ease;
-            user-select: none;
+            font-size: 1.2rem;
+            box-shadow: var(--glow);
+            transition: 0.3s ease;
         }
-        .music-btn:hover {
-            color: var(--morado-neon);
-            text-shadow: var(--glow);
+
+        .btn-action:hover {
+            background: var(--morado-neon);
+            color: var(--negro-profundo);
             transform: scale(1.1);
         }
-        #play-btn {
-            font-size: 1.8rem;
-            color: var(--morado-neon);
+
+        /* --- SECCIÓN 2: CÁPSULA DE DESEOS Y MENSAJES (INNOVADOR) --- */
+        .wish-capsule-card {
+            background: var(--negro-tarjeta);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--morado-neon);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--glow);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
         }
-        .active-loop {
-            color: var(--morado-neon) !important;
+
+        .wish-capsule-card h3 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.1rem;
+            color: var(--morado-neon);
             text-shadow: var(--glow);
         }
 
-        /* Controles de Volumen */
-        .volume-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .volume-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 80px;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
+        .wish-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(188, 97, 255, 0.4);
+            border-radius: 16px;
+            padding: 12px 18px;
+            color: var(--blanco-puro);
+            font-family: inherit;
+            font-size: 0.9rem;
             outline: none;
-            transition: 0.2s;
-        }
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--morado-neon);
-            box-shadow: var(--glow);
-            cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* --- NUEVO PANEL DE PLAYLIST (ESTILO SPOTIFY) --- */
-        .spotify-playlist {
-            margin-top: 10px;
-            border-top: 1px solid rgba(188, 97, 255, 0.2);
-            padding-top: 15px;
+        .wish-input:focus {
+            border-color: var(--morado-neon);
+            box-shadow: var(--glow);
+        }
+
+        .btn-send-wish {
+            background: var(--morado-neon);
+            color: var(--negro-profundo);
+            border: none;
+            padding: 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: var(--glow);
+            transition: 0.3s ease;
+        }
+
+        .btn-send-wish:hover {
+            transform: scale(1.03);
+            background: #ffffff;
+        }
+
+        .wishes-display {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+            max-height: 160px;
+            overflow-y: auto;
+            margin-top: 10px;
+            text-align: left;
         }
-        .playlist-track {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.2s ease;
-        }
-        .playlist-track:hover {
-            background: rgba(188, 97, 255, 0.1);
-            border-color: rgba(188, 97, 255, 0.3);
-        }
-        .playlist-track.active-track {
-            background: rgba(188, 97, 255, 0.15);
-            border-color: var(--morado-neon);
-            box-shadow: inset 0 0 10px rgba(188, 97, 255, 0.2);
-        }
-        .playlist-track.active-track .track-name {
-            color: var(--morado-neon);
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(188, 97, 255, 0.5);
-        }
-        .track-left-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .track-number {
-            font-size: 0.8rem;
-            color: #666;
-            width: 20px;
-        }
-        .track-name {
+
+        .wish-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--morado-neon);
+            padding: 10px 14px;
+            border-radius: 8px;
             font-size: 0.85rem;
-            color: var(--blanco-puro);
-            transition: 0.2s;
-        }
-        .track-icon {
-            font-size: 0.9rem;
-            opacity: 0;
-            transition: 0.2s;
-        }
-        .playlist-track:hover .track-icon, .playlist-track.active-track .track-icon {
-            opacity: 1;
+            animation: fadeIn 0.4s ease;
         }
 
-        /* --- POP-UPS --- */
-        #secret-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 20000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .modal-content { background: #0f0f0f; border: 1px solid var(--morado-neon); padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 0 40px rgba(188, 97, 255, 0.3); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        #custom-menu { position: fixed; display: none; background: #111; border: 1px solid var(--morado-neon); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 10000; width: 180px; padding: 10px; animation: fadeIn 0.2s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .menu-item { padding: 12px; font-size: 0.8rem; color: white; cursor: pointer; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid #333; }
-        .menu-item:hover { background: var(--morado-neon); color: black; border-radius: 10px; }
+        /* CORAZONES FLOTANTES */
+        .corazon { position: fixed; top: -50px; font-size: 1.2rem; pointer-events: none; z-index: 1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        footer { text-align: center; padding: 2rem; opacity: 0.4; font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; margin-top: auto; }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="/" class="logo">KUROMI x LOVE</a>
+    <a href="home.html" class="logo">KUROMI x LOVE</a>
     <div class="nav-links">
-        <a href="/" style="color: var(--morado-neon); text-shadow: var(--glow); margin-right: 15px;">Inicio</a>
-        <a href="/biografia" style="margin-right: 15px;">Biografía</a>
-        <a href="/album" style="margin-right: 15px;">Álbum</a>
-        <a href="/cartas" style="margin-right: 15px;">Cartas</a>
-        <a href="/nuestro-mundo" style="margin-right: 15px;">Nuestro Mundo</a>
-        <a href="/regalos" style="margin-right: 15px;">Regalos</a>
-        <a href="/feliz-cumple">Feliz Cumple</a>
+        <a href="home.html">Inicio</a>
+        <a href="biografia.html">Biografía</a>
+        <a href="album.html">Álbum</a>
+        <a href="cartas.html">Cartas</a>
+        <a href="nuestro-mundo.html" style="color: var(--morado-neon); text-shadow: var(--glow);">Nuestro Mundo</a>
     </div>
 </nav>
 
-<div id="secret-modal">
-    <div class="modal-content">
-        <div style="font-size: 3rem;">🔒</div>
-        <h2 style="margin: 20px 0;">SISTEMA ENCRIPTADO</h2>
-        <p>"Eres el código más lindo que he escrito. Te amo."</p>
-        <button onclick="toggleModal(false)" style="margin-top:20px; background:var(--morado-neon); border:none; padding:10px 25px; border-radius:50px; cursor:pointer; font-family:'Syncopate';">DESCONECTAR</button>
-    </div>
-</div>
+<main>
+    <h2>NUESTRO MUNDO 🌀</h2>
 
-<div id="custom-menu">
-    <div class="menu-item" onclick="location.href='home.html'">🏠 INICIO</div>
-    <div class="menu-item" onclick="location.href='regalos.html'">🎁 REGALOS</div>
-    <div class="menu-item" onclick="alert('¡Te amo!')">💀 SALUDO</div>
-</div>
+    <div class="orbit-player-container" id="playerContainer">
 
-<div class="container">
-    <h2 class="js-tilt">NUESTRO MUNDO 🌌</h2>
-    <div class="info-item js-tilt">
-        <h3>Sincronía Total</h3>
-        <p>Este es nuestro refugio digital. Cada detalle aquí es un pedacito de nosotros.</p>
-    </div>
+        <div class="eq-container">
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+            <div class="eq-bar"></div>
+        </div>
 
-    <div class="music-card js-tilt">
-        <div class="music-main-info">
-            <div class="album-art">💀</div>
-            <div style="flex: 1;">
-                <p id="track-title" style="font-weight: bold; font-size: 0.9rem; color: var(--morado-neon);">Musica 1</p>
-                <p id="track-time" style="font-size: 0.75rem; color: #888; margin-top: 3px;">0:00 / 0:00</p>
+        <h3 id="nowPlayingText" style="color: var(--morado-neon); font-size: 1.1rem; text-shadow: var(--glow);">
+            Selecciona una canción 🔮
+        </h3>
+
+        <div class="orbit-wheels">
+            <div class="song-disc active" onclick="selectSong(0)">
+                <span class="disc-icon">💀</span>
+                <span class="disc-title">Música 1</span>
+            </div>
+            <div class="song-disc" onclick="selectSong(1)">
+                <span class="disc-icon">💜</span>
+                <span class="disc-title">Música 2</span>
+            </div>
+            <div class="song-disc" onclick="selectSong(2)">
+                <span class="disc-icon">✨</span>
+                <span class="disc-title">Música 3</span>
+            </div>
+            <div class="song-disc" onclick="selectSong(3)">
+                <span class="disc-icon">🖤</span>
+                <span class="disc-title">Música 4</span>
             </div>
         </div>
 
-        <div class="music-controls-container">
-            <div class="playback-buttons">
-                <button class="music-btn" id="rewind-btn" title="Canción anterior">⏪</button>
-                <button class="music-btn" id="play-btn" title="Reproducir / Pausar">▶</button>
-                <button class="music-btn" id="forward-btn" title="Siguiente canción">⏩</button>
-                <button class="music-btn" id="loop-btn" title="Repetir canción">🔁</button>
-            </div>
-
-            <div class="volume-container">
-                <span style="font-size: 0.9rem;">🔊</span>
-                <input type="range" class="volume-slider" id="volume-range" min="0" max="1" step="0.01" value="1">
-            </div>
+        <div class="main-controls">
+            <button class="btn-action" onclick="prevSong()">⏮</button>
+            <button class="btn-action" id="playBtn" onclick="togglePlay()" style="width: 60px; height: 60px; font-size: 1.5rem;">▶</button>
+            <button class="btn-action" onclick="nextSong()">⏭</button>
         </div>
-
-        <div class="spotify-playlist">
-            <div class="playlist-track active-track" onclick="selectTrack(0)">
-                <div class="track-left-info">
-                    <span class="track-number">1</span>
-                    <span class="track-name">Musica 1</span>
-                </div>
-                <span class="track-icon">🎵</span>
-            </div>
-            <div class="playlist-track" onclick="selectTrack(1)">
-                <div class="track-left-info">
-                    <span class="track-number">2</span>
-                    <span class="track-name">Musica 2</span>
-                </div>
-                <span class="track-icon">🎵</span>
-            </div>
-            <div class="playlist-track" onclick="selectTrack(2)">
-                <div class="track-left-info">
-                    <span class="track-number">3</span>
-                    <span class="track-name">Musica 3</span>
-                </div>
-                <span class="track-icon">🎵</span>
-            </div>
-            <div class="playlist-track" onclick="selectTrack(3)">
-                <div class="track-left-info">
-                    <span class="track-number">4</span>
-                    <span class="track-name">Musica 4</span>
-                </div>
-                <span class="track-icon">🎵</span>
-            </div>
-        </div>
-
-        <audio id="mi-musica" src="/static/musica/Musica 1.mpeg" autoplay></audio>
     </div>
-</div>
+
+    <div class="wish-capsule-card">
+        <h3>🌌 Cápsula de Deseos Kuromi</h3>
+        <p style="font-size: 0.85rem; color: #aaa;">Escribe una nota o deseo para dejarlo grabado en nuestro universo:</p>
+
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="wishInput" class="wish-input" placeholder="Escribe algo bonito aquí..." onkeypress="handleKeyPress(event)">
+            <button class="btn-send-wish" onclick="addWish()">LANZAR ✨</button>
+        </div>
+
+        <div class="wishes-display" id="wishesDisplay">
+            <div class="wish-item">✨ "Que este espacio dure por siempre."</div>
+            <div class="wish-item">💜 "Eres la mejor parte de mi día."</div>
+        </div>
+    </div>
+
+</main>
+
+<audio id="audioPlayer"></audio>
+
+<footer><p>SISTEMA DE AMOR KUROMI v1.0 • 2026</p></footer>
 
 <script>
-    function toggleModal(show) { document.getElementById('secret-modal').style.display = show ? 'flex' : 'none'; }
-
-    document.querySelectorAll('.js-tilt').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const rotateX = (e.clientY - rect.top - rect.height/2) / 15;
-            const rotateY = (rect.width/2 - (e.clientX - rect.left)) / 15;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        card.addEventListener('mouseleave', () => card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`);
-    });
-
-    setInterval(() => {
-        const h = document.createElement('div'); h.className='corazon'; h.innerText=['💜','💀'][Math.floor(Math.random()*2)];
-        h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*3+2)+'s';
-        document.body.appendChild(h); setTimeout(()=>h.remove(), 5000);
-    }, 500);
-
-    document.addEventListener('mousemove', (e) => {
-        const p = document.createElement('div'); p.innerHTML = '💜';
-        p.style.position = 'fixed'; p.style.left = e.clientX + 'px'; p.style.top = e.clientY + 'px';
-        p.style.pointerEvents = 'none'; p.style.fontSize = '10px'; p.style.zIndex = '10000';
-        document.body.appendChild(p);
-        p.animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(2) translateY(-20px)' }], { duration: 600 }).onfinish = () => p.remove();
-    });
-
-    const logo = document.getElementById('trigger-secret');
-    let timer;
-    logo.addEventListener('mousedown', () => timer = setTimeout(() => toggleModal(true), 1500));
-    logo.addEventListener('mouseup', () => clearTimeout(timer));
-
-    // --- LÓGICA DE REPRODUCTOR CON PLAYLIST COMPLETA ---
-    const audio = document.getElementById('mi-musica');
-    const playBtn = document.getElementById('play-btn');
-    const rewindBtn = document.getElementById('rewind-btn');
-    const forwardBtn = document.getElementById('forward-btn');
-    const loopBtn = document.getElementById('loop-btn');
-    const volumeRange = document.getElementById('volume-range');
-    const trackTime = document.getElementById('track-time');
-    const trackTitle = document.getElementById('track-title');
-    const playlistTracks = document.querySelectorAll('.playlist-track');
-
-    const playlist = [
-        { title: "Musica 1", src: "/musica/Musica 1.mpeg" },
-        { title: "Musica 2", src: "/musica/Musica 2.mpeg" },
-        { title: "Musica 3", src: "/musica/Musica 3.mpeg" },
-        { title: "Musica 4", src: "/musica/Musica 4.mpeg" }
+    // RUTAS CON COMPATIBILIDAD A AMBAS ESTRUCTURAS DE CARPETAS (../ O /)
+    const songs = [
+        { title: "Música 1", src: "../musica/Musica 1.mpeg" },
+        { title: "Música 2", src: "../musica/Musica 2.mpeg" },
+        { title: "Música 3", src: "../musica/Musica 3.mpeg" },
+        { title: "Música 4", src: "../musica/Musica 4.mpeg" }
     ];
 
-    let currentTrackIndex = 0;
+    let currentIndex = 0;
+    let isPlaying = false;
 
-    // Función para cambiar visualmente la canción activa en la lista
-    function updatePlaylistUI(index) {
-        playlistTracks.forEach((track, i) => {
-            if (i === index) {
-                track.classList.add('active-track');
-            } else {
-                track.classList.remove('active-track');
-            }
+    const audio = document.getElementById('audioPlayer');
+    const playBtn = document.getElementById('playBtn');
+    const playerContainer = document.getElementById('playerContainer');
+    const nowPlayingText = document.getElementById('nowPlayingText');
+    const discs = document.querySelectorAll('.song-disc');
+
+    function loadSong(index) {
+        currentIndex = index;
+        audio.src = songs[index].src;
+        nowPlayingText.innerText = `Sonando: ${songs[index].title} 🎵`;
+
+        discs.forEach((disc, i) => {
+            disc.classList.toggle('active', i === index);
         });
     }
 
-    // Función para cargar y reproducir una pista
-    function loadTrack(index) {
-        if (index >= 0 && index < playlist.length) {
-            currentTrackIndex = index;
-            audio.src = playlist[currentTrackIndex].src;
-            trackTitle.innerText = playlist[currentTrackIndex].title;
-
-            updatePlaylistUI(currentTrackIndex);
-
+    function togglePlay() {
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            playBtn.innerText = '▶';
+            playerContainer.classList.remove('playing');
+        } else {
             audio.play().then(() => {
+                isPlaying = true;
                 playBtn.innerText = '⏸';
-            }).catch(error => {
-                console.log("Autoplay bloqueado temporalmente.");
+                playerContainer.classList.add('playing');
+            }).catch(err => {
+                console.log("Error al reproducir audio:", err);
+                alert("Para reproducir la música, por favor haz un clic en cualquier parte de la pantalla primero.");
             });
         }
     }
 
-    // Función que se activa al hacer clic directamente en la lista de canciones
-    function selectTrack(index) {
-        loadTrack(index);
+    function selectSong(index) {
+        loadSong(index);
+        isPlaying = false;
+        togglePlay();
     }
 
-    function formatTime(secs) {
-        if (isNaN(secs)) return "0:00";
-        const m = Math.floor(secs / 60);
-        const s = Math.floor(secs % 60);
-        return `${m}:${s < 10 ? '0' : ''}${s}`;
+    function nextSong() {
+        currentIndex = (currentIndex + 1) % songs.length;
+        selectSong(currentIndex);
     }
 
-    audio.addEventListener('timeupdate', () => {
-        trackTime.innerText = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-    });
-
-    audio.addEventListener('loadedmetadata', () => {
-        trackTime.innerText = `0:00 / ${formatTime(audio.duration)}`;
-    });
+    function prevSong() {
+        currentIndex = (currentIndex - 1 + songs.length) % songs.length;
+        selectSong(currentIndex);
+    }
 
     audio.addEventListener('ended', () => {
-        if (audio.loop) {
-            audio.play();
-        } else {
-            let nextIndex = (currentTrackIndex + 1) % playlist.length;
-            loadTrack(nextIndex);
+        nextSong();
+    });
+
+    // CÁPSULA DE DESEOS
+    function addWish() {
+        const input = document.getElementById('wishInput');
+        const text = input.value.trim();
+        if (text !== "") {
+            const display = document.getElementById('wishesDisplay');
+            const newWish = document.createElement('div');
+            newWish.className = 'wish-item';
+            newWish.innerText = "🔮 " + text;
+            display.prepend(newWish);
+            input.value = "";
         }
-    });
+    }
 
-    playBtn.addEventListener('click', () => {
-        if(audio.paused) {
-            audio.play();
-            playBtn.innerText = '⏸';
-        } else {
-            audio.pause();
-            playBtn.innerText = '▶';
-        }
-    });
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') addWish();
+    }
 
-    rewindBtn.addEventListener('click', () => {
-        if (audio.currentTime > 3) {
-            audio.currentTime = 0;
-        } else {
-            let prevIndex = currentTrackIndex - 1;
-            if (prevIndex < 0) prevIndex = playlist.length - 1;
-            loadTrack(prevIndex);
-        }
-    });
+    // Cargar primera canción
+    loadSong(0);
 
-    forwardBtn.addEventListener('click', () => {
-        let nextIndex = (currentTrackIndex + 1) % playlist.length;
-        loadTrack(nextIndex);
-    });
-
-    loopBtn.addEventListener('click', () => {
-        audio.loop = !audio.loop;
-        if(audio.loop) {
-            loopBtn.classList.add('active-loop');
-        } else {
-            loopBtn.classList.remove('active-loop');
-        }
-    });
-
-    volumeRange.addEventListener('input', (e) => {
-        audio.volume = e.target.value;
-    });
-
-    document.addEventListener('click', () => {
-        if (audio.paused && audio.currentTime === 0) {
-            audio.play().then(() => {
-                playBtn.innerText = '⏸';
-            }).catch(error => {
-                console.log("El navegador restringió el autoplay.");
-            });
-        }
-    }, { once: true });
-
-    document.addEventListener('contextmenu', e => { e.preventDefault(); const m = document.getElementById('custom-menu'); m.style.display='block'; m.style.left=e.clientX+'px'; m.style.top=e.clientY+'px'; });
-    document.addEventListener('click', () => document.getElementById('custom-menu').style.display='none');
+    // Lluvia de corazones
+    setInterval(() => {
+        const h = document.createElement('div'); h.className='corazon'; h.innerText=['💜','✨','💀','🖤'][Math.floor(Math.random()*4)];
+        h.style.left=Math.random()*100+'vw'; h.style.animationDuration=(Math.random()*4+3)+'s';
+        document.body.appendChild(h); setTimeout(()=>h.remove(), 7000);
+    }, 450);
 </script>
 
 </body>
 </html>
-
-
