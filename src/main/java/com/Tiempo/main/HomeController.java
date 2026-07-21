@@ -10,4 +10,34 @@ public class HomeController {
     public String index() {
         return "home";
     }
+
+    @GetMapping("/biografia")
+    public String biografia() {
+        return "biografia";
+    }
+
+    @GetMapping("/album")
+    public String album() {
+        return "album";
+    }
+
+    @GetMapping("/cartas")
+    public String cartas() {
+        return "cartas";
+    }
+
+    @GetMapping("/nuestro-mundo")
+    public String nuestroMundo() {
+        return "nuestro-mundo";
+    }
+
+    @GetMapping("/regalos")
+    public String regalos() {
+        return "regalos";
+    }
+
+    @GetMapping("/feliz-cumple")
+    public String felizCumple() {
+        return "feliz-cumple";
+    }
 }
